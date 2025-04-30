@@ -1,5 +1,5 @@
 ```
-fetch("http://localhost:8000/user", {
+fetch("http://localhost:8000/user/create", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -8,7 +8,15 @@ fetch("http://localhost:8000/user", {
     name: "Администратор",
     login: "admin",
     password: "password",
+    role: "admin",
   }),
+});
+
+fetch("http://localhost:8000/user/", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 ```
 

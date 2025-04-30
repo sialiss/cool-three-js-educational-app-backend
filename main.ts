@@ -18,7 +18,8 @@ import {
 	Header,
 	Payload,
 } from "https://deno.land/x/djwt@v3.0.1/mod.ts"
-import { hashPassword } from "./user/hashPassword.ts"
+import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts"
+import { checkPassword, hashPassword } from "./user/hashPassword.ts"
 import { assert } from "https://deno.land/x/oak@v11.1.0/util.ts"
 
 /**
@@ -33,15 +34,30 @@ const prisma = new PrismaClient({
 	},
 })
 const app = new Application()
-const router = new Router()
-
-// вот это надо запоминать а не перегенерировать каждый запуск сервера!!!!!!!
-const secret_key = await crypto.subtle.generateKey(
-	{ name: "HMAC", hash: "SHA-512" },
-	true,
-	["sign", "verify"]
+app.use(
+	oakCors({
+		origin: "http://localhost:3000",
+		credentials: true,
+	})
 )
-assert(secret_key, "ключ потеряли")
+const router = new Router()
+app.use(router.routes())
+app.use(router.allowedMethods())
+
+async function getKey(secret: string): Promise<CryptoKey> {
+	const encoder = new TextEncoder()
+	return await crypto.subtle.importKey(
+		"raw",
+		encoder.encode(secret),
+		{ name: "HMAC", hash: "SHA-256" },
+		false,
+		["sign", "verify"]
+	)
+}
+
+const secret = Deno.env.get("LOGIN_SECRET_KEY")
+assert(secret, "ключ потеряли")
+const secret_key = await getKey(secret)
 
 /**
  * Setup routes.
@@ -68,12 +84,14 @@ router
 	})
 	.post("/user/create", async context => {
 		// Create a new user.
-		const { name, login, password } = await context.request.body().value
+		const { name, login, password, role } = await context.request.body()
+			.value
 		const result = await prisma.user.create({
 			data: {
 				name,
 				login,
 				password: await hashPassword(password),
+				role,
 			},
 		})
 		context.response.body = result
@@ -91,17 +109,22 @@ router
 
 	.post("/user/login", async context => {
 		// Log in.
-		const { login, password } = await context.request.body().value
-		const user = await prisma.user.findUnique({
+		const body = context.request.body({ type: "json" })
+		const { login, password } = await body.value
+		console.log(login, password)
+		const user = await prisma.user.findFirst({
 			where: {
 				login,
-				password: await hashPassword(password),
 			},
 		})
 		if (!user) {
-			context.response.body = "пользователь не найден"
+			context.response.body = {
+				text: "пользователь не найден",
+				ok: false,
+			}
 			context.response.status = 418
-		} else {
+			context.response.type = "error"
+		} else if (await checkPassword(password, user.password)) {
 			const header: Header = {
 				alg: "HS256",
 				typ: "JWT",
@@ -112,7 +135,10 @@ router
 				exp: getNumericDate(60 * 60 * 24 * 30), // токен действителен 1 месяц
 			}
 			const token = await create(header, payload, secret_key)
-			context.response.body = token
+			context.response.body = { text: token, ok: true }
+		} else {
+			context.response.body = { text: "неверный пароль", ok: false }
+			context.response.status = 418
 		}
 	})
 
