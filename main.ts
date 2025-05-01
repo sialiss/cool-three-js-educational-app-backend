@@ -19,7 +19,7 @@ import {
 	Payload,
 } from "https://deno.land/x/djwt@v3.0.1/mod.ts"
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts"
-import { checkPassword, hashPassword } from "./user/hashPassword.ts"
+import { checkPassword, checkRole, hashPassword } from "./user/crypto.ts"
 import { assert } from "https://deno.land/x/oak@v11.1.0/util.ts"
 
 /**
@@ -106,6 +106,17 @@ router
 		})
 		context.response.body = user
 	})
+	.put("/user/:id", async context => {
+		const { id } = context.params
+		const { name, login, role } = await context.request.body().value
+
+		const updatedUser = await prisma.user.update({
+			where: { id: Number(id) },
+			data: { name, login, role },
+		})
+
+		context.response.body = updatedUser
+	})
 
 	.post("/user/login", async context => {
 		// Log in.
@@ -135,9 +146,20 @@ router
 				exp: getNumericDate(60 * 60 * 24 * 30), // токен действителен 1 месяц
 			}
 			const token = await create(header, payload, secret_key)
-			context.response.body = { text: token, ok: true }
+			context.response.body = { token: token, role: user.role, ok: true }
 		} else {
 			context.response.body = { text: "неверный пароль", ok: false }
+			context.response.status = 418
+		}
+	})
+	.post("/user/getrole", async context => {
+		// Get user role by token
+		const { token } = await context.request.body().value
+		const result = await checkRole(token, secret_key)
+		if (result) {
+			context.response.body = { role: result }
+		} else {
+			context.response.body = { text: "роль не найдена", ok: false }
 			context.response.status = 418
 		}
 	})
