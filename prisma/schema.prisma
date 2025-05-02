@@ -16,8 +16,18 @@ datasource db {
 
 model User {
   id          Int     @id @default(autoincrement())
-  name        String  
+  name        String
+  surname     String
+  patronymic  String?
   login       String  @unique
   password    String
-  role        String
+  email       String
+  phone       String?
+  role        Role
+}
+
+enum Role {
+  user
+  admin
+  moderator
 }

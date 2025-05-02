@@ -83,19 +83,44 @@ router
 		context.response.body = user
 	})
 	.post("/user/create", async context => {
-		// Create a new user.
-		const { name, login, password, role } = await context.request.body()
-			.value
+		const body = await context.request.body().value
+		const {
+			name,
+			surname,
+			patronymic,
+			login,
+			password,
+			email,
+			phone,
+			role,
+		} = body
+
+		// Валидация
+		if (!name || !surname || !login || !password || !email || !role) {
+			context.response.status = 400
+			context.response.body = {
+				error: "Не все обязательные поля заполнены",
+			}
+			return
+		}
+
 		const result = await prisma.user.create({
 			data: {
 				name,
+				surname,
+				patronymic,
 				login,
 				password: await hashPassword(password),
+				email,
+				phone,
 				role,
 			},
 		})
+
+		context.response.status = 201
 		context.response.body = result
 	})
+
 	.delete("/user/:id", async context => {
 		// Delete a user by id.
 		const { id } = context.params

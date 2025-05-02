@@ -47,4 +47,5 @@ path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
  */
 export type User = Prisma.UserModel
 
-
+export type Role = $Enums.Role
+export const Role = $Enums.Role
