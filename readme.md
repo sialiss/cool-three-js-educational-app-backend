@@ -6,11 +6,16 @@ fetch("http://localhost:8000/user/create", {
   },
   body: JSON.stringify({
     name: "Администратор",
+    surname: "Системный",
+    patronymic: "Главный",
     login: "admin",
     password: "password",
-    role: "admin",
+    email: "admin@example.com",
+    phone: "+79991234567",
+    role: "admin"
   }),
 });
+
 
 fetch("http://localhost:8000/user/", {
   method: "GET",
@@ -26,9 +31,8 @@ deno run -A --env-file npm:prisma generate
 
 deno run -A --env-file npm:prisma migrate dev --name init
 
-
 model Token {
-  token       String  @id 
-  user        User?   @relation(fields: [userId], references: [id])
-  userId      Int
+token String @id
+user User? @relation(fields: [userId], references: [id])
+userId Int
 }
