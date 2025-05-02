@@ -46,6 +46,11 @@ path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model TheoryLesson
+ * 
+ */
+export type TheoryLesson = Prisma.TheoryLessonModel
 
 export type Role = $Enums.Role
 export const Role = $Enums.Role

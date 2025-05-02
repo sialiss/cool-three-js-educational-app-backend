@@ -19,7 +19,12 @@ import {
 	Payload,
 } from "https://deno.land/x/djwt@v3.0.1/mod.ts"
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts"
-import { checkPassword, checkRole, hashPassword } from "./user/crypto.ts"
+import {
+	checkPassword,
+	checkRole,
+	getUserByToken,
+	hashPassword,
+} from "./user/crypto.ts"
 import { assert } from "https://deno.land/x/oak@v11.1.0/util.ts"
 
 /**
@@ -187,6 +192,100 @@ router
 			context.response.body = { text: "роль не найдена", ok: false }
 			context.response.status = 418
 		}
+
+		// GET /theory-lessons
+		router.get("/theory-lessons", async context => {
+			const lessons = await prisma.theoryLesson.findMany({
+				orderBy: { id: "asc" },
+			})
+			context.response.body = lessons
+		})
+
+		// GET /theory-lessons/:id
+		router.get("/theory-lessons/:id", async context => {
+			const id = Number(context.params.id)
+			const lesson = await prisma.theoryLesson.findUnique({
+				where: { id },
+			})
+			if (!lesson) {
+				context.response.status = 404
+				context.response.body = { error: "Урок не найден" }
+				return
+			}
+			context.response.body = lesson
+		})
+
+		// POST /theory-lessons
+		router.post("/theory-lessons", async context => {
+			const { title, description, content } = await context.request.body()
+				.value
+			const lesson = await prisma.theoryLesson.create({
+				data: { title, description, content },
+			})
+			context.response.body = lesson
+		})
+
+		// PUT /theory-lessons/:id
+		router.put("/theory-lessons/:id", async context => {
+			const id = Number(context.params.id)
+			const { title, description, content } = await context.request.body()
+				.value
+			const lesson = await prisma.theoryLesson.update({
+				where: { id },
+				data: { title, description, content },
+			})
+			context.response.body = lesson
+		})
+
+		// DELETE /theory-lessons/:id
+		router.delete("/theory-lessons/:id", async context => {
+			const id = Number(context.params.id)
+			await prisma.theoryLesson.delete({ where: { id } })
+			context.response.status = 204
+		})
+
+		// PUT /theory-lessons/:id/complete
+		router.put("/theory-lessons/:id/complete", async context => {
+			const { token } = await context.request.body().value
+			const lessonId = Number(context.params.id)
+
+			const result = await getUserByToken(token, secret_key, prisma)
+			if ("error" in result) {
+				return {
+					status: result.status,
+					body: { error: result.error },
+				}
+			}
+
+			const user = result.user
+			const alreadyCompleted = user.completedTheoryLessons.some(
+				l => l.id === lessonId
+			)
+
+			if (alreadyCompleted) {
+				// Удаляем отметку
+				await prisma.user.update({
+					where: { id: user.id },
+					data: {
+						completedTheoryLessons: {
+							disconnect: { id: lessonId },
+						},
+					},
+				})
+				context.response.body = { completed: false }
+			} else {
+				// Добавляем отметку
+				await prisma.user.update({
+					where: { id: user.id },
+					data: {
+						completedTheoryLessons: {
+							connect: { id: lessonId },
+						},
+					},
+				})
+				context.response.body = { completed: true }
+			}
+		})
 	})
 
 /**
