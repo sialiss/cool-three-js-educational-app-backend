@@ -19,7 +19,7 @@ export async function checkRole(jwt: string, secret_key: CryptoKey) {
 
 export async function checkUserId(jwt: string, secret_key: CryptoKey) {
 	const payload = await verify(jwt, secret_key)
-	return payload.id
+	return payload.userId
 }
 
 type SafeUser = Omit<User, "password"> & {

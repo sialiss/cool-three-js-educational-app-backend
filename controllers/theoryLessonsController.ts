@@ -12,7 +12,7 @@ export async function getAll(ctx: Context) {
 	})
 }
 
-export async function getOne(ctx: Context) {
+export async function getOne(ctx: Context & { params: { id: string } }) {
 	const id = Number(ctx.params.id)
 	const lesson = await prisma.theoryLesson.findUnique({ where: { id } })
 	if (!lesson) {
@@ -20,7 +20,7 @@ export async function getOne(ctx: Context) {
 		ctx.response.body = { error: "Урок не найден" }
 		return
 	}
-	ctx.response.body = lesson
+    ctx.response.body = { lesson, ok: true }
 }
 
 export async function create(ctx: Context) {
@@ -31,7 +31,7 @@ export async function create(ctx: Context) {
 	ctx.response.body = lesson
 }
 
-export async function update(ctx: Context) {
+export async function update(ctx: Context & { params: { id: string } }) {
 	const id = Number(ctx.params.id)
 	const { title, description, content } = await ctx.request.body().value
 	const lesson = await prisma.theoryLesson.update({
@@ -41,13 +41,13 @@ export async function update(ctx: Context) {
 	ctx.response.body = lesson
 }
 
-export async function remove(ctx: Context) {
+export async function remove(ctx: Context & { params: { id: string } }) {
 	const id = Number(ctx.params.id)
 	await prisma.theoryLesson.delete({ where: { id } })
 	ctx.response.status = 204
 }
 
-export async function toggleComplete(ctx: Context) {
+export async function toggleComplete(ctx: Context & { params: { id: string } }) {
 	const lessonId = Number(ctx.params.id)
 	const { token } = await ctx.request.body().value
 
@@ -73,4 +73,5 @@ export async function toggleComplete(ctx: Context) {
 	})
 
 	ctx.response.body = { completed: !alreadyCompleted }
+
 }

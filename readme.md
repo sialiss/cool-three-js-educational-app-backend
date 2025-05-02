@@ -30,6 +30,7 @@ deno run -A npm:prisma init --datasource-provider postgresql --generator-provide
 deno run -A --env-file npm:prisma generate
 
 deno run -A --env-file npm:prisma migrate dev --name init
+deno run --allow-env --allow-net --allow-read utils/seed.ts  
 
 model Token {
 token String @id

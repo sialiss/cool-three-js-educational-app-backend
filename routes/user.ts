@@ -11,5 +11,6 @@ router
 	.put("/user/:id", userController.update)
 	.post("/user/login", userController.login)
 	.post("/user/getrole", userController.getRole)
+	.get("/me", userController.getMe)
 
 export default router
