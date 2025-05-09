@@ -2,6 +2,7 @@ import { Application, Router } from "./deps.ts"
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts"
 import userRoutes from "./routes/user.ts"
 import theoryLessonsRoutes from "./routes/theoryLessons.ts"
+import practiceLessonsRoutes from "./routes/practiceLessons.ts"
 
 const app = new Application()
 
@@ -23,6 +24,9 @@ app.use(userRoutes.allowedMethods())
 
 app.use(theoryLessonsRoutes.routes())
 app.use(theoryLessonsRoutes.allowedMethods())
+
+app.use(practiceLessonsRoutes.routes())
+app.use(practiceLessonsRoutes.allowedMethods())
 
 console.log("Server running on http://localhost:8000")
 await app.listen({ port: 8000 })

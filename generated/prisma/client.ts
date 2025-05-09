@@ -51,6 +51,11 @@ export type User = Prisma.UserModel
  * 
  */
 export type TheoryLesson = Prisma.TheoryLessonModel
+/**
+ * Model PracticeLesson
+ * 
+ */
+export type PracticeLesson = Prisma.PracticeLessonModel
 
 export type Role = $Enums.Role
 export const Role = $Enums.Role

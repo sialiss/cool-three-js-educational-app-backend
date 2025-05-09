@@ -248,6 +248,7 @@ export type UserWhereInput = {
   phone?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   completedTheoryLessons?: Prisma.TheoryLessonListRelationFilter
+  completedPracticeLessons?: Prisma.PracticeLessonListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -261,6 +262,7 @@ export type UserOrderByWithRelationInput = {
   phone?: Prisma.SortOrder
   role?: Prisma.SortOrder
   completedTheoryLessons?: Prisma.TheoryLessonOrderByRelationAggregateInput
+  completedPracticeLessons?: Prisma.PracticeLessonOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -277,6 +279,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   completedTheoryLessons?: Prisma.TheoryLessonListRelationFilter
+  completedPracticeLessons?: Prisma.PracticeLessonListRelationFilter
 }, "id" | "login">
 
 export type UserOrderByWithAggregationInput = {
@@ -321,6 +324,7 @@ export type UserCreateInput = {
   phone: string
   role: $Enums.Role
   completedTheoryLessons?: Prisma.TheoryLessonCreateNestedManyWithoutCompletedByInput
+  completedPracticeLessons?: Prisma.PracticeLessonCreateNestedManyWithoutCompletedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -334,6 +338,7 @@ export type UserUncheckedCreateInput = {
   phone: string
   role: $Enums.Role
   completedTheoryLessons?: Prisma.TheoryLessonUncheckedCreateNestedManyWithoutCompletedByInput
+  completedPracticeLessons?: Prisma.PracticeLessonUncheckedCreateNestedManyWithoutCompletedByInput
 }
 
 export type UserUpdateInput = {
@@ -346,6 +351,7 @@ export type UserUpdateInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   completedTheoryLessons?: Prisma.TheoryLessonUpdateManyWithoutCompletedByNestedInput
+  completedPracticeLessons?: Prisma.PracticeLessonUpdateManyWithoutCompletedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -359,6 +365,7 @@ export type UserUncheckedUpdateInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   completedTheoryLessons?: Prisma.TheoryLessonUncheckedUpdateManyWithoutCompletedByNestedInput
+  completedPracticeLessons?: Prisma.PracticeLessonUncheckedUpdateManyWithoutCompletedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -504,6 +511,44 @@ export type UserUncheckedUpdateManyWithoutCompletedTheoryLessonsNestedInput = {
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
+export type UserCreateNestedManyWithoutCompletedPracticeLessonsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompletedPracticeLessonsInput, Prisma.UserUncheckedCreateWithoutCompletedPracticeLessonsInput> | Prisma.UserCreateWithoutCompletedPracticeLessonsInput[] | Prisma.UserUncheckedCreateWithoutCompletedPracticeLessonsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompletedPracticeLessonsInput | Prisma.UserCreateOrConnectWithoutCompletedPracticeLessonsInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUncheckedCreateNestedManyWithoutCompletedPracticeLessonsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompletedPracticeLessonsInput, Prisma.UserUncheckedCreateWithoutCompletedPracticeLessonsInput> | Prisma.UserCreateWithoutCompletedPracticeLessonsInput[] | Prisma.UserUncheckedCreateWithoutCompletedPracticeLessonsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompletedPracticeLessonsInput | Prisma.UserCreateOrConnectWithoutCompletedPracticeLessonsInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUpdateManyWithoutCompletedPracticeLessonsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompletedPracticeLessonsInput, Prisma.UserUncheckedCreateWithoutCompletedPracticeLessonsInput> | Prisma.UserCreateWithoutCompletedPracticeLessonsInput[] | Prisma.UserUncheckedCreateWithoutCompletedPracticeLessonsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompletedPracticeLessonsInput | Prisma.UserCreateOrConnectWithoutCompletedPracticeLessonsInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutCompletedPracticeLessonsInput | Prisma.UserUpsertWithWhereUniqueWithoutCompletedPracticeLessonsInput[]
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutCompletedPracticeLessonsInput | Prisma.UserUpdateWithWhereUniqueWithoutCompletedPracticeLessonsInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutCompletedPracticeLessonsInput | Prisma.UserUpdateManyWithWhereWithoutCompletedPracticeLessonsInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserUncheckedUpdateManyWithoutCompletedPracticeLessonsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompletedPracticeLessonsInput, Prisma.UserUncheckedCreateWithoutCompletedPracticeLessonsInput> | Prisma.UserCreateWithoutCompletedPracticeLessonsInput[] | Prisma.UserUncheckedCreateWithoutCompletedPracticeLessonsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompletedPracticeLessonsInput | Prisma.UserCreateOrConnectWithoutCompletedPracticeLessonsInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutCompletedPracticeLessonsInput | Prisma.UserUpsertWithWhereUniqueWithoutCompletedPracticeLessonsInput[]
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutCompletedPracticeLessonsInput | Prisma.UserUpdateWithWhereUniqueWithoutCompletedPracticeLessonsInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutCompletedPracticeLessonsInput | Prisma.UserUpdateManyWithWhereWithoutCompletedPracticeLessonsInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
 export type UserCreateWithoutCompletedTheoryLessonsInput = {
   name: string
   surname: string
@@ -513,6 +558,7 @@ export type UserCreateWithoutCompletedTheoryLessonsInput = {
   email: string
   phone: string
   role: $Enums.Role
+  completedPracticeLessons?: Prisma.PracticeLessonCreateNestedManyWithoutCompletedByInput
 }
 
 export type UserUncheckedCreateWithoutCompletedTheoryLessonsInput = {
@@ -525,6 +571,7 @@ export type UserUncheckedCreateWithoutCompletedTheoryLessonsInput = {
   email: string
   phone: string
   role: $Enums.Role
+  completedPracticeLessons?: Prisma.PracticeLessonUncheckedCreateNestedManyWithoutCompletedByInput
 }
 
 export type UserCreateOrConnectWithoutCompletedTheoryLessonsInput = {
@@ -563,6 +610,52 @@ export type UserScalarWhereInput = {
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
 }
 
+export type UserCreateWithoutCompletedPracticeLessonsInput = {
+  name: string
+  surname: string
+  patronymic: string
+  login: string
+  password: string
+  email: string
+  phone: string
+  role: $Enums.Role
+  completedTheoryLessons?: Prisma.TheoryLessonCreateNestedManyWithoutCompletedByInput
+}
+
+export type UserUncheckedCreateWithoutCompletedPracticeLessonsInput = {
+  id?: number
+  name: string
+  surname: string
+  patronymic: string
+  login: string
+  password: string
+  email: string
+  phone: string
+  role: $Enums.Role
+  completedTheoryLessons?: Prisma.TheoryLessonUncheckedCreateNestedManyWithoutCompletedByInput
+}
+
+export type UserCreateOrConnectWithoutCompletedPracticeLessonsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompletedPracticeLessonsInput, Prisma.UserUncheckedCreateWithoutCompletedPracticeLessonsInput>
+}
+
+export type UserUpsertWithWhereUniqueWithoutCompletedPracticeLessonsInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCompletedPracticeLessonsInput, Prisma.UserUncheckedUpdateWithoutCompletedPracticeLessonsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompletedPracticeLessonsInput, Prisma.UserUncheckedCreateWithoutCompletedPracticeLessonsInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutCompletedPracticeLessonsInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCompletedPracticeLessonsInput, Prisma.UserUncheckedUpdateWithoutCompletedPracticeLessonsInput>
+}
+
+export type UserUpdateManyWithWhereWithoutCompletedPracticeLessonsInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutCompletedPracticeLessonsInput>
+}
+
 export type UserUpdateWithoutCompletedTheoryLessonsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   surname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -572,6 +665,7 @@ export type UserUpdateWithoutCompletedTheoryLessonsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  completedPracticeLessons?: Prisma.PracticeLessonUpdateManyWithoutCompletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompletedTheoryLessonsInput = {
@@ -584,9 +678,47 @@ export type UserUncheckedUpdateWithoutCompletedTheoryLessonsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  completedPracticeLessons?: Prisma.PracticeLessonUncheckedUpdateManyWithoutCompletedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutCompletedTheoryLessonsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  surname?: Prisma.StringFieldUpdateOperationsInput | string
+  patronymic?: Prisma.StringFieldUpdateOperationsInput | string
+  login?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+}
+
+export type UserUpdateWithoutCompletedPracticeLessonsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  surname?: Prisma.StringFieldUpdateOperationsInput | string
+  patronymic?: Prisma.StringFieldUpdateOperationsInput | string
+  login?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  completedTheoryLessons?: Prisma.TheoryLessonUpdateManyWithoutCompletedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCompletedPracticeLessonsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  surname?: Prisma.StringFieldUpdateOperationsInput | string
+  patronymic?: Prisma.StringFieldUpdateOperationsInput | string
+  login?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  completedTheoryLessons?: Prisma.TheoryLessonUncheckedUpdateManyWithoutCompletedByNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutCompletedPracticeLessonsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   surname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -605,10 +737,12 @@ export type UserUncheckedUpdateManyWithoutCompletedTheoryLessonsInput = {
 
 export type UserCountOutputType = {
   completedTheoryLessons: number
+  completedPracticeLessons: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   completedTheoryLessons?: boolean | UserCountOutputTypeCountCompletedTheoryLessonsArgs
+  completedPracticeLessons?: boolean | UserCountOutputTypeCountCompletedPracticeLessonsArgs
 }
 
 /**
@@ -628,6 +762,13 @@ export type UserCountOutputTypeCountCompletedTheoryLessonsArgs<ExtArgs extends r
   where?: Prisma.TheoryLessonWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCompletedPracticeLessonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PracticeLessonWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -640,6 +781,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   phone?: boolean
   role?: boolean
   completedTheoryLessons?: boolean | Prisma.User$completedTheoryLessonsArgs<ExtArgs>
+  completedPracticeLessons?: boolean | Prisma.User$completedPracticeLessonsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -682,6 +824,7 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "surname" | "patronymic" | "login" | "password" | "email" | "phone" | "role", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   completedTheoryLessons?: boolean | Prisma.User$completedTheoryLessonsArgs<ExtArgs>
+  completedPracticeLessons?: boolean | Prisma.User$completedPracticeLessonsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -691,6 +834,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     completedTheoryLessons: Prisma.$TheoryLessonPayload<ExtArgs>[]
+    completedPracticeLessons: Prisma.$PracticeLessonPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1097,6 +1241,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   completedTheoryLessons<T extends Prisma.User$completedTheoryLessonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$completedTheoryLessonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TheoryLessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  completedPracticeLessons<T extends Prisma.User$completedPracticeLessonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$completedPracticeLessonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PracticeLessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1544,6 +1689,30 @@ export type User$completedTheoryLessonsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.TheoryLessonScalarFieldEnum | Prisma.TheoryLessonScalarFieldEnum[]
+}
+
+/**
+ * User.completedPracticeLessons
+ */
+export type User$completedPracticeLessonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PracticeLesson
+   */
+  select?: Prisma.PracticeLessonSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PracticeLesson
+   */
+  omit?: Prisma.PracticeLessonOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PracticeLessonInclude<ExtArgs> | null
+  where?: Prisma.PracticeLessonWhereInput
+  orderBy?: Prisma.PracticeLessonOrderByWithRelationInput | Prisma.PracticeLessonOrderByWithRelationInput[]
+  cursor?: Prisma.PracticeLessonWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PracticeLessonScalarFieldEnum | Prisma.PracticeLessonScalarFieldEnum[]
 }
 
 /**

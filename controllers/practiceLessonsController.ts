@@ -7,14 +7,14 @@ const secret = Deno.env.get("LOGIN_SECRET_KEY")!
 const secretKey = await getKey(secret)
 
 export async function getAll(ctx: Context) {
-	ctx.response.body = await prisma.theoryLesson.findMany({
+	ctx.response.body = await prisma.practiceLesson.findMany({
 		orderBy: { id: "asc" },
 	})
 }
 
 export async function getOne(ctx: Context & { params: { id: string } }) {
 	const id = Number(ctx.params.id)
-	const lesson = await prisma.theoryLesson.findUnique({ where: { id } })
+	const lesson = await prisma.practiceLesson.findUnique({ where: { id } })
 	if (!lesson) {
 		ctx.response.status = 404
 		ctx.response.body = { error: "Урок не найден" }
@@ -24,26 +24,42 @@ export async function getOne(ctx: Context & { params: { id: string } }) {
 }
 
 export async function create(ctx: Context) {
-	const { title, description, content } = await ctx.request.body().value
-	const lesson = await prisma.theoryLesson.create({
-		data: { title, description, content },
+	const { title, description, author, field, extras, goal } =
+		await ctx.request.body().value
+	const lesson = await prisma.practiceLesson.create({
+		data: {
+			title,
+			description,
+			author,
+			field,
+			extras,
+			goal,
+		},
 	})
-	ctx.response.body = lesson
+	ctx.response.body = { lesson, ok: true }
 }
 
 export async function update(ctx: Context & { params: { id: string } }) {
 	const id = Number(ctx.params.id)
-	const { title, description, content } = await ctx.request.body().value
-	const lesson = await prisma.theoryLesson.update({
+	const { title, description, author, field, extras, goal } =
+		await ctx.request.body().value
+	const lesson = await prisma.practiceLesson.update({
 		where: { id },
-		data: { title, description, content },
+		data: {
+			title,
+			description,
+			author,
+			field,
+			extras,
+			goal,
+		},
 	})
-	ctx.response.body = {lesson, ok: true}
+	ctx.response.body = { lesson, ok: true }
 }
 
 export async function remove(ctx: Context & { params: { id: string } }) {
 	const id = Number(ctx.params.id)
-	await prisma.theoryLesson.delete({ where: { id } })
+	await prisma.practiceLesson.delete({ where: { id } })
 	ctx.response.status = 204
 }
 
@@ -61,14 +77,14 @@ export async function toggleComplete(
 	}
 
 	const user = result.user
-	const alreadyCompleted = user.completedTheoryLessons.some(
+	const alreadyCompleted = user.completedPracticeLessons.some(
 		l => l.id === lessonId
 	)
 
 	await prisma.user.update({
 		where: { id: user.id },
 		data: {
-			completedTheoryLessons: {
+			completedPracticeLessons: {
 				[alreadyCompleted ? "disconnect" : "connect"]: { id: lessonId },
 			},
 		},

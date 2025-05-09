@@ -395,7 +395,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  TheoryLesson: 'TheoryLesson'
+  TheoryLesson: 'TheoryLesson',
+  PracticeLesson: 'PracticeLesson'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -411,7 +412,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "theoryLesson"
+    modelProps: "user" | "theoryLesson" | "practiceLesson"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -563,6 +564,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PracticeLesson: {
+      payload: Prisma.$PracticeLessonPayload<ExtArgs>
+      fields: Prisma.PracticeLessonFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PracticeLessonFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PracticeLessonPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PracticeLessonFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PracticeLessonPayload>
+        }
+        findFirst: {
+          args: Prisma.PracticeLessonFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PracticeLessonPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PracticeLessonFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PracticeLessonPayload>
+        }
+        findMany: {
+          args: Prisma.PracticeLessonFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PracticeLessonPayload>[]
+        }
+        create: {
+          args: Prisma.PracticeLessonCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PracticeLessonPayload>
+        }
+        createMany: {
+          args: Prisma.PracticeLessonCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PracticeLessonCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PracticeLessonPayload>[]
+        }
+        delete: {
+          args: Prisma.PracticeLessonDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PracticeLessonPayload>
+        }
+        update: {
+          args: Prisma.PracticeLessonUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PracticeLessonPayload>
+        }
+        deleteMany: {
+          args: Prisma.PracticeLessonDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PracticeLessonUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PracticeLessonUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PracticeLessonPayload>[]
+        }
+        upsert: {
+          args: Prisma.PracticeLessonUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PracticeLessonPayload>
+        }
+        aggregate: {
+          args: Prisma.PracticeLessonAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePracticeLesson>
+        }
+        groupBy: {
+          args: Prisma.PracticeLessonGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PracticeLessonGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PracticeLessonCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PracticeLessonCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -629,6 +704,21 @@ export const TheoryLessonScalarFieldEnum = {
 export type TheoryLessonScalarFieldEnum = (typeof TheoryLessonScalarFieldEnum)[keyof typeof TheoryLessonScalarFieldEnum]
 
 
+export const PracticeLessonScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  author: 'author',
+  field: 'field',
+  extras: 'extras',
+  goal: 'goal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PracticeLessonScalarFieldEnum = (typeof PracticeLessonScalarFieldEnum)[keyof typeof PracticeLessonScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -637,12 +727,28 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -704,6 +810,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -797,6 +917,7 @@ export interface PrismaClientOptions {
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   theoryLesson?: Prisma.TheoryLessonOmit
+  practiceLesson?: Prisma.PracticeLessonOmit
 }
 
 /* Types for Logging */
