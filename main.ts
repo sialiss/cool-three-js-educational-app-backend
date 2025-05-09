@@ -1,6 +1,7 @@
 import { Application, Router } from "./deps.ts"
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts"
 import userRoutes from "./routes/user.ts"
+import lessonsRoutes from "./routes/lessons.ts"
 import theoryLessonsRoutes from "./routes/theoryLessons.ts"
 import practiceLessonsRoutes from "./routes/practiceLessons.ts"
 
@@ -21,6 +22,9 @@ router.get("/", context => {
 
 app.use(userRoutes.routes())
 app.use(userRoutes.allowedMethods())
+
+app.use(lessonsRoutes.routes())
+app.use(lessonsRoutes.allowedMethods())
 
 app.use(theoryLessonsRoutes.routes())
 app.use(theoryLessonsRoutes.allowedMethods())

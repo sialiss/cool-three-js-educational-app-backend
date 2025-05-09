@@ -27,35 +27,34 @@ export type AggregateTheoryLesson = {
 
 export type TheoryLessonAvgAggregateOutputType = {
   id: number | null
+  lessonId: number | null
 }
 
 export type TheoryLessonSumAggregateOutputType = {
   id: number | null
+  lessonId: number | null
 }
 
 export type TheoryLessonMinAggregateOutputType = {
   id: number | null
-  title: string | null
-  description: string | null
   content: string | null
+  lessonId: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type TheoryLessonMaxAggregateOutputType = {
   id: number | null
-  title: string | null
-  description: string | null
   content: string | null
+  lessonId: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type TheoryLessonCountAggregateOutputType = {
   id: number
-  title: number
-  description: number
   content: number
+  lessonId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -64,35 +63,34 @@ export type TheoryLessonCountAggregateOutputType = {
 
 export type TheoryLessonAvgAggregateInputType = {
   id?: true
+  lessonId?: true
 }
 
 export type TheoryLessonSumAggregateInputType = {
   id?: true
+  lessonId?: true
 }
 
 export type TheoryLessonMinAggregateInputType = {
   id?: true
-  title?: true
-  description?: true
   content?: true
+  lessonId?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type TheoryLessonMaxAggregateInputType = {
   id?: true
-  title?: true
-  description?: true
   content?: true
+  lessonId?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type TheoryLessonCountAggregateInputType = {
   id?: true
-  title?: true
-  description?: true
   content?: true
+  lessonId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -186,9 +184,8 @@ export type TheoryLessonGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 
 export type TheoryLessonGroupByOutputType = {
   id: number
-  title: string
-  description: string
   content: string
+  lessonId: number
   createdAt: Date
   updatedAt: Date
   _count: TheoryLessonCountAggregateOutputType | null
@@ -218,42 +215,41 @@ export type TheoryLessonWhereInput = {
   OR?: Prisma.TheoryLessonWhereInput[]
   NOT?: Prisma.TheoryLessonWhereInput | Prisma.TheoryLessonWhereInput[]
   id?: Prisma.IntFilter<"TheoryLesson"> | number
-  title?: Prisma.StringFilter<"TheoryLesson"> | string
-  description?: Prisma.StringFilter<"TheoryLesson"> | string
   content?: Prisma.StringFilter<"TheoryLesson"> | string
+  lessonId?: Prisma.IntFilter<"TheoryLesson"> | number
   createdAt?: Prisma.DateTimeFilter<"TheoryLesson"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TheoryLesson"> | Date | string
+  lesson?: Prisma.XOR<Prisma.LessonScalarRelationFilter, Prisma.LessonWhereInput>
   completedBy?: Prisma.UserListRelationFilter
 }
 
 export type TheoryLessonOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  lesson?: Prisma.LessonOrderByWithRelationInput
   completedBy?: Prisma.UserOrderByRelationAggregateInput
 }
 
 export type TheoryLessonWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  lessonId?: number
   AND?: Prisma.TheoryLessonWhereInput | Prisma.TheoryLessonWhereInput[]
   OR?: Prisma.TheoryLessonWhereInput[]
   NOT?: Prisma.TheoryLessonWhereInput | Prisma.TheoryLessonWhereInput[]
-  title?: Prisma.StringFilter<"TheoryLesson"> | string
-  description?: Prisma.StringFilter<"TheoryLesson"> | string
   content?: Prisma.StringFilter<"TheoryLesson"> | string
   createdAt?: Prisma.DateTimeFilter<"TheoryLesson"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TheoryLesson"> | Date | string
+  lesson?: Prisma.XOR<Prisma.LessonScalarRelationFilter, Prisma.LessonWhereInput>
   completedBy?: Prisma.UserListRelationFilter
-}, "id">
+}, "id" | "lessonId">
 
 export type TheoryLessonOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TheoryLessonCountOrderByAggregateInput
@@ -268,46 +264,41 @@ export type TheoryLessonScalarWhereWithAggregatesInput = {
   OR?: Prisma.TheoryLessonScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TheoryLessonScalarWhereWithAggregatesInput | Prisma.TheoryLessonScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"TheoryLesson"> | number
-  title?: Prisma.StringWithAggregatesFilter<"TheoryLesson"> | string
-  description?: Prisma.StringWithAggregatesFilter<"TheoryLesson"> | string
   content?: Prisma.StringWithAggregatesFilter<"TheoryLesson"> | string
+  lessonId?: Prisma.IntWithAggregatesFilter<"TheoryLesson"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TheoryLesson"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TheoryLesson"> | Date | string
 }
 
 export type TheoryLessonCreateInput = {
-  title: string
-  description: string
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  lesson: Prisma.LessonCreateNestedOneWithoutTheoryInput
   completedBy?: Prisma.UserCreateNestedManyWithoutCompletedTheoryLessonsInput
 }
 
 export type TheoryLessonUncheckedCreateInput = {
   id?: number
-  title: string
-  description: string
   content: string
+  lessonId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   completedBy?: Prisma.UserUncheckedCreateNestedManyWithoutCompletedTheoryLessonsInput
 }
 
 export type TheoryLessonUpdateInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lesson?: Prisma.LessonUpdateOneRequiredWithoutTheoryNestedInput
   completedBy?: Prisma.UserUpdateManyWithoutCompletedTheoryLessonsNestedInput
 }
 
 export type TheoryLessonUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  lessonId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completedBy?: Prisma.UserUncheckedUpdateManyWithoutCompletedTheoryLessonsNestedInput
@@ -315,16 +306,13 @@ export type TheoryLessonUncheckedUpdateInput = {
 
 export type TheoryLessonCreateManyInput = {
   id?: number
-  title: string
-  description: string
   content: string
+  lessonId: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type TheoryLessonUpdateManyMutationInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -332,9 +320,8 @@ export type TheoryLessonUpdateManyMutationInput = {
 
 export type TheoryLessonUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  lessonId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -349,39 +336,43 @@ export type TheoryLessonOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type TheoryLessonNullableScalarRelationFilter = {
+  is?: Prisma.TheoryLessonWhereInput | null
+  isNot?: Prisma.TheoryLessonWhereInput | null
+}
+
 export type TheoryLessonCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type TheoryLessonAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
 }
 
 export type TheoryLessonMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type TheoryLessonMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type TheoryLessonSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
 }
 
 export type TheoryLessonCreateNestedManyWithoutCompletedByInput = {
@@ -422,23 +413,53 @@ export type TheoryLessonUncheckedUpdateManyWithoutCompletedByNestedInput = {
   deleteMany?: Prisma.TheoryLessonScalarWhereInput | Prisma.TheoryLessonScalarWhereInput[]
 }
 
+export type TheoryLessonCreateNestedOneWithoutLessonInput = {
+  create?: Prisma.XOR<Prisma.TheoryLessonCreateWithoutLessonInput, Prisma.TheoryLessonUncheckedCreateWithoutLessonInput>
+  connectOrCreate?: Prisma.TheoryLessonCreateOrConnectWithoutLessonInput
+  connect?: Prisma.TheoryLessonWhereUniqueInput
+}
+
+export type TheoryLessonUncheckedCreateNestedOneWithoutLessonInput = {
+  create?: Prisma.XOR<Prisma.TheoryLessonCreateWithoutLessonInput, Prisma.TheoryLessonUncheckedCreateWithoutLessonInput>
+  connectOrCreate?: Prisma.TheoryLessonCreateOrConnectWithoutLessonInput
+  connect?: Prisma.TheoryLessonWhereUniqueInput
+}
+
+export type TheoryLessonUpdateOneWithoutLessonNestedInput = {
+  create?: Prisma.XOR<Prisma.TheoryLessonCreateWithoutLessonInput, Prisma.TheoryLessonUncheckedCreateWithoutLessonInput>
+  connectOrCreate?: Prisma.TheoryLessonCreateOrConnectWithoutLessonInput
+  upsert?: Prisma.TheoryLessonUpsertWithoutLessonInput
+  disconnect?: Prisma.TheoryLessonWhereInput | boolean
+  delete?: Prisma.TheoryLessonWhereInput | boolean
+  connect?: Prisma.TheoryLessonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TheoryLessonUpdateToOneWithWhereWithoutLessonInput, Prisma.TheoryLessonUpdateWithoutLessonInput>, Prisma.TheoryLessonUncheckedUpdateWithoutLessonInput>
+}
+
+export type TheoryLessonUncheckedUpdateOneWithoutLessonNestedInput = {
+  create?: Prisma.XOR<Prisma.TheoryLessonCreateWithoutLessonInput, Prisma.TheoryLessonUncheckedCreateWithoutLessonInput>
+  connectOrCreate?: Prisma.TheoryLessonCreateOrConnectWithoutLessonInput
+  upsert?: Prisma.TheoryLessonUpsertWithoutLessonInput
+  disconnect?: Prisma.TheoryLessonWhereInput | boolean
+  delete?: Prisma.TheoryLessonWhereInput | boolean
+  connect?: Prisma.TheoryLessonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TheoryLessonUpdateToOneWithWhereWithoutLessonInput, Prisma.TheoryLessonUpdateWithoutLessonInput>, Prisma.TheoryLessonUncheckedUpdateWithoutLessonInput>
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
 export type TheoryLessonCreateWithoutCompletedByInput = {
-  title: string
-  description: string
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  lesson: Prisma.LessonCreateNestedOneWithoutTheoryInput
 }
 
 export type TheoryLessonUncheckedCreateWithoutCompletedByInput = {
   id?: number
-  title: string
-  description: string
   content: string
+  lessonId: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -469,35 +490,77 @@ export type TheoryLessonScalarWhereInput = {
   OR?: Prisma.TheoryLessonScalarWhereInput[]
   NOT?: Prisma.TheoryLessonScalarWhereInput | Prisma.TheoryLessonScalarWhereInput[]
   id?: Prisma.IntFilter<"TheoryLesson"> | number
-  title?: Prisma.StringFilter<"TheoryLesson"> | string
-  description?: Prisma.StringFilter<"TheoryLesson"> | string
   content?: Prisma.StringFilter<"TheoryLesson"> | string
+  lessonId?: Prisma.IntFilter<"TheoryLesson"> | number
   createdAt?: Prisma.DateTimeFilter<"TheoryLesson"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TheoryLesson"> | Date | string
 }
 
-export type TheoryLessonUpdateWithoutCompletedByInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+export type TheoryLessonCreateWithoutLessonInput = {
+  content: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  completedBy?: Prisma.UserCreateNestedManyWithoutCompletedTheoryLessonsInput
+}
+
+export type TheoryLessonUncheckedCreateWithoutLessonInput = {
+  id?: number
+  content: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  completedBy?: Prisma.UserUncheckedCreateNestedManyWithoutCompletedTheoryLessonsInput
+}
+
+export type TheoryLessonCreateOrConnectWithoutLessonInput = {
+  where: Prisma.TheoryLessonWhereUniqueInput
+  create: Prisma.XOR<Prisma.TheoryLessonCreateWithoutLessonInput, Prisma.TheoryLessonUncheckedCreateWithoutLessonInput>
+}
+
+export type TheoryLessonUpsertWithoutLessonInput = {
+  update: Prisma.XOR<Prisma.TheoryLessonUpdateWithoutLessonInput, Prisma.TheoryLessonUncheckedUpdateWithoutLessonInput>
+  create: Prisma.XOR<Prisma.TheoryLessonCreateWithoutLessonInput, Prisma.TheoryLessonUncheckedCreateWithoutLessonInput>
+  where?: Prisma.TheoryLessonWhereInput
+}
+
+export type TheoryLessonUpdateToOneWithWhereWithoutLessonInput = {
+  where?: Prisma.TheoryLessonWhereInput
+  data: Prisma.XOR<Prisma.TheoryLessonUpdateWithoutLessonInput, Prisma.TheoryLessonUncheckedUpdateWithoutLessonInput>
+}
+
+export type TheoryLessonUpdateWithoutLessonInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completedBy?: Prisma.UserUpdateManyWithoutCompletedTheoryLessonsNestedInput
+}
+
+export type TheoryLessonUncheckedUpdateWithoutLessonInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completedBy?: Prisma.UserUncheckedUpdateManyWithoutCompletedTheoryLessonsNestedInput
+}
+
+export type TheoryLessonUpdateWithoutCompletedByInput = {
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lesson?: Prisma.LessonUpdateOneRequiredWithoutTheoryNestedInput
 }
 
 export type TheoryLessonUncheckedUpdateWithoutCompletedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  lessonId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TheoryLessonUncheckedUpdateManyWithoutCompletedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  lessonId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -535,60 +598,64 @@ export type TheoryLessonCountOutputTypeCountCompletedByArgs<ExtArgs extends runt
 
 export type TheoryLessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  title?: boolean
-  description?: boolean
   content?: boolean
+  lessonId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
   completedBy?: boolean | Prisma.TheoryLesson$completedByArgs<ExtArgs>
   _count?: boolean | Prisma.TheoryLessonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["theoryLesson"]>
 
 export type TheoryLessonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  title?: boolean
-  description?: boolean
   content?: boolean
+  lessonId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["theoryLesson"]>
 
 export type TheoryLessonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  title?: boolean
-  description?: boolean
   content?: boolean
+  lessonId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["theoryLesson"]>
 
 export type TheoryLessonSelectScalar = {
   id?: boolean
-  title?: boolean
-  description?: boolean
   content?: boolean
+  lessonId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TheoryLessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["theoryLesson"]>
+export type TheoryLessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "lessonId" | "createdAt" | "updatedAt", ExtArgs["result"]["theoryLesson"]>
 export type TheoryLessonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
   completedBy?: boolean | Prisma.TheoryLesson$completedByArgs<ExtArgs>
   _count?: boolean | Prisma.TheoryLessonCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type TheoryLessonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type TheoryLessonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type TheoryLessonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
+}
+export type TheoryLessonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
+}
 
 export type $TheoryLessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TheoryLesson"
   objects: {
+    lesson: Prisma.$LessonPayload<ExtArgs>
     completedBy: Prisma.$UserPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    title: string
-    description: string
     content: string
+    lessonId: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["theoryLesson"]>
@@ -985,6 +1052,7 @@ readonly fields: TheoryLessonFieldRefs;
  */
 export interface Prisma__TheoryLessonClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  lesson<T extends Prisma.LessonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LessonDefaultArgs<ExtArgs>>): Prisma.Prisma__LessonClient<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   completedBy<T extends Prisma.TheoryLesson$completedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TheoryLesson$completedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1016,9 +1084,8 @@ export interface Prisma__TheoryLessonClient<T, Null = never, ExtArgs extends run
  */
 export interface TheoryLessonFieldRefs {
   readonly id: Prisma.FieldRef<"TheoryLesson", 'Int'>
-  readonly title: Prisma.FieldRef<"TheoryLesson", 'String'>
-  readonly description: Prisma.FieldRef<"TheoryLesson", 'String'>
   readonly content: Prisma.FieldRef<"TheoryLesson", 'String'>
+  readonly lessonId: Prisma.FieldRef<"TheoryLesson", 'Int'>
   readonly createdAt: Prisma.FieldRef<"TheoryLesson", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TheoryLesson", 'DateTime'>
 }
@@ -1270,6 +1337,10 @@ export type TheoryLessonCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    */
   data: Prisma.TheoryLessonCreateManyInput | Prisma.TheoryLessonCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TheoryLessonIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1340,6 +1411,10 @@ export type TheoryLessonUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    * Limit how many TheoryLessons to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TheoryLessonIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

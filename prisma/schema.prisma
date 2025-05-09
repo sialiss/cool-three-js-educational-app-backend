@@ -34,25 +34,33 @@ enum Role {
   moderator
 }
 
+model Lesson {
+  id               Int             @id @default(autoincrement())
+  title            String
+  description      String
+  theory           TheoryLesson?   @relation("LessonToTheory")
+  practice         PracticeLesson? @relation("LessonToPractice")
+}
+
 model TheoryLesson {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  content     String
-  completedBy User[]   @relation("CompletedTheoryLessons")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  content    String
+  lessonId   Int      @unique
+  lesson     Lesson   @relation("LessonToTheory", fields: [lessonId], references: [id])
+  completedBy User[]  @relation("CompletedTheoryLessons")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model PracticeLesson {
-  id            Int       @id @default(autoincrement())
-  title         String
-  description   String
-  author        String
-  field         Json
-  extras        Json
-  goal          Json
-  completedBy   User[]    @relation("CompletedPracticeLessons")
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id          Int      @id @default(autoincrement())
+  author      String
+  field       Json
+  extras      Json
+  goal        Json
+  lessonId    Int      @unique
+  lesson      Lesson   @relation("LessonToPractice", fields: [lessonId], references: [id])
+  completedBy User[]   @relation("CompletedPracticeLessons")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

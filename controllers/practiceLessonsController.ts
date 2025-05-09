@@ -7,20 +7,25 @@ const secret = Deno.env.get("LOGIN_SECRET_KEY")!
 const secretKey = await getKey(secret)
 
 export async function getAll(ctx: Context) {
-	ctx.response.body = await prisma.practiceLesson.findMany({
+	const lessons = await prisma.practiceLesson.findMany({
+		include: { lesson: true },
 		orderBy: { id: "asc" },
 	})
+	ctx.response.body = lessons
 }
 
 export async function getOne(ctx: Context & { params: { id: string } }) {
 	const id = Number(ctx.params.id)
-	const lesson = await prisma.practiceLesson.findUnique({ where: { id } })
-	if (!lesson) {
+	const practice = await prisma.practiceLesson.findUnique({
+		where: { id },
+		include: { lesson: true },
+	})
+	if (!practice) {
 		ctx.response.status = 404
 		ctx.response.body = { error: "Урок не найден" }
 		return
 	}
-	ctx.response.body = { lesson, ok: true }
+	ctx.response.body = { lesson: practice, ok: true }
 }
 
 export async function create(ctx: Context) {
@@ -28,33 +33,38 @@ export async function create(ctx: Context) {
 		await ctx.request.body().value
 	const lesson = await prisma.practiceLesson.create({
 		data: {
-			title,
-			description,
 			author,
 			field,
 			extras,
 			goal,
+			lesson: {
+				create: { title, description },
+			},
 		},
 	})
-	ctx.response.body = { lesson, ok: true }
+	ctx.response.body = lesson
 }
 
 export async function update(ctx: Context & { params: { id: string } }) {
 	const id = Number(ctx.params.id)
 	const { title, description, author, field, extras, goal } =
 		await ctx.request.body().value
-	const lesson = await prisma.practiceLesson.update({
+
+	const practice = await prisma.practiceLesson.update({
 		where: { id },
 		data: {
-			title,
-			description,
 			author,
 			field,
 			extras,
 			goal,
+			lesson: {
+				update: { title, description },
+			},
 		},
+		include: { lesson: true },
 	})
-	ctx.response.body = { lesson, ok: true }
+
+	ctx.response.body = { lesson: practice, ok: true }
 }
 
 export async function remove(ctx: Context & { params: { id: string } }) {

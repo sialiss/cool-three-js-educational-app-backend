@@ -27,38 +27,37 @@ export type AggregatePracticeLesson = {
 
 export type PracticeLessonAvgAggregateOutputType = {
   id: number | null
+  lessonId: number | null
 }
 
 export type PracticeLessonSumAggregateOutputType = {
   id: number | null
+  lessonId: number | null
 }
 
 export type PracticeLessonMinAggregateOutputType = {
   id: number | null
-  title: string | null
-  description: string | null
   author: string | null
+  lessonId: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type PracticeLessonMaxAggregateOutputType = {
   id: number | null
-  title: string | null
-  description: string | null
   author: string | null
+  lessonId: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type PracticeLessonCountAggregateOutputType = {
   id: number
-  title: number
-  description: number
   author: number
   field: number
   extras: number
   goal: number
+  lessonId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -67,38 +66,37 @@ export type PracticeLessonCountAggregateOutputType = {
 
 export type PracticeLessonAvgAggregateInputType = {
   id?: true
+  lessonId?: true
 }
 
 export type PracticeLessonSumAggregateInputType = {
   id?: true
+  lessonId?: true
 }
 
 export type PracticeLessonMinAggregateInputType = {
   id?: true
-  title?: true
-  description?: true
   author?: true
+  lessonId?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type PracticeLessonMaxAggregateInputType = {
   id?: true
-  title?: true
-  description?: true
   author?: true
+  lessonId?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type PracticeLessonCountAggregateInputType = {
   id?: true
-  title?: true
-  description?: true
   author?: true
   field?: true
   extras?: true
   goal?: true
+  lessonId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -192,12 +190,11 @@ export type PracticeLessonGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 
 export type PracticeLessonGroupByOutputType = {
   id: number
-  title: string
-  description: string
   author: string
   field: runtime.JsonValue
   extras: runtime.JsonValue
   goal: runtime.JsonValue
+  lessonId: number
   createdAt: Date
   updatedAt: Date
   _count: PracticeLessonCountAggregateOutputType | null
@@ -227,54 +224,53 @@ export type PracticeLessonWhereInput = {
   OR?: Prisma.PracticeLessonWhereInput[]
   NOT?: Prisma.PracticeLessonWhereInput | Prisma.PracticeLessonWhereInput[]
   id?: Prisma.IntFilter<"PracticeLesson"> | number
-  title?: Prisma.StringFilter<"PracticeLesson"> | string
-  description?: Prisma.StringFilter<"PracticeLesson"> | string
   author?: Prisma.StringFilter<"PracticeLesson"> | string
   field?: Prisma.JsonFilter<"PracticeLesson">
   extras?: Prisma.JsonFilter<"PracticeLesson">
   goal?: Prisma.JsonFilter<"PracticeLesson">
+  lessonId?: Prisma.IntFilter<"PracticeLesson"> | number
   createdAt?: Prisma.DateTimeFilter<"PracticeLesson"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PracticeLesson"> | Date | string
+  lesson?: Prisma.XOR<Prisma.LessonScalarRelationFilter, Prisma.LessonWhereInput>
   completedBy?: Prisma.UserListRelationFilter
 }
 
 export type PracticeLessonOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   author?: Prisma.SortOrder
   field?: Prisma.SortOrder
   extras?: Prisma.SortOrder
   goal?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  lesson?: Prisma.LessonOrderByWithRelationInput
   completedBy?: Prisma.UserOrderByRelationAggregateInput
 }
 
 export type PracticeLessonWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  lessonId?: number
   AND?: Prisma.PracticeLessonWhereInput | Prisma.PracticeLessonWhereInput[]
   OR?: Prisma.PracticeLessonWhereInput[]
   NOT?: Prisma.PracticeLessonWhereInput | Prisma.PracticeLessonWhereInput[]
-  title?: Prisma.StringFilter<"PracticeLesson"> | string
-  description?: Prisma.StringFilter<"PracticeLesson"> | string
   author?: Prisma.StringFilter<"PracticeLesson"> | string
   field?: Prisma.JsonFilter<"PracticeLesson">
   extras?: Prisma.JsonFilter<"PracticeLesson">
   goal?: Prisma.JsonFilter<"PracticeLesson">
   createdAt?: Prisma.DateTimeFilter<"PracticeLesson"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PracticeLesson"> | Date | string
+  lesson?: Prisma.XOR<Prisma.LessonScalarRelationFilter, Prisma.LessonWhereInput>
   completedBy?: Prisma.UserListRelationFilter
-}, "id">
+}, "id" | "lessonId">
 
 export type PracticeLessonOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   author?: Prisma.SortOrder
   field?: Prisma.SortOrder
   extras?: Prisma.SortOrder
   goal?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PracticeLessonCountOrderByAggregateInput
@@ -289,61 +285,56 @@ export type PracticeLessonScalarWhereWithAggregatesInput = {
   OR?: Prisma.PracticeLessonScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PracticeLessonScalarWhereWithAggregatesInput | Prisma.PracticeLessonScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"PracticeLesson"> | number
-  title?: Prisma.StringWithAggregatesFilter<"PracticeLesson"> | string
-  description?: Prisma.StringWithAggregatesFilter<"PracticeLesson"> | string
   author?: Prisma.StringWithAggregatesFilter<"PracticeLesson"> | string
   field?: Prisma.JsonWithAggregatesFilter<"PracticeLesson">
   extras?: Prisma.JsonWithAggregatesFilter<"PracticeLesson">
   goal?: Prisma.JsonWithAggregatesFilter<"PracticeLesson">
+  lessonId?: Prisma.IntWithAggregatesFilter<"PracticeLesson"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PracticeLesson"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PracticeLesson"> | Date | string
 }
 
 export type PracticeLessonCreateInput = {
-  title: string
-  description: string
   author: string
   field: Prisma.JsonNullValueInput | runtime.InputJsonValue
   extras: Prisma.JsonNullValueInput | runtime.InputJsonValue
   goal: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  lesson: Prisma.LessonCreateNestedOneWithoutPracticeInput
   completedBy?: Prisma.UserCreateNestedManyWithoutCompletedPracticeLessonsInput
 }
 
 export type PracticeLessonUncheckedCreateInput = {
   id?: number
-  title: string
-  description: string
   author: string
   field: Prisma.JsonNullValueInput | runtime.InputJsonValue
   extras: Prisma.JsonNullValueInput | runtime.InputJsonValue
   goal: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  lessonId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   completedBy?: Prisma.UserUncheckedCreateNestedManyWithoutCompletedPracticeLessonsInput
 }
 
 export type PracticeLessonUpdateInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.StringFieldUpdateOperationsInput | string
   field?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   extras?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   goal?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lesson?: Prisma.LessonUpdateOneRequiredWithoutPracticeNestedInput
   completedBy?: Prisma.UserUpdateManyWithoutCompletedPracticeLessonsNestedInput
 }
 
 export type PracticeLessonUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.StringFieldUpdateOperationsInput | string
   field?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   extras?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   goal?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  lessonId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completedBy?: Prisma.UserUncheckedUpdateManyWithoutCompletedPracticeLessonsNestedInput
@@ -351,19 +342,16 @@ export type PracticeLessonUncheckedUpdateInput = {
 
 export type PracticeLessonCreateManyInput = {
   id?: number
-  title: string
-  description: string
   author: string
   field: Prisma.JsonNullValueInput | runtime.InputJsonValue
   extras: Prisma.JsonNullValueInput | runtime.InputJsonValue
   goal: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  lessonId: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type PracticeLessonUpdateManyMutationInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.StringFieldUpdateOperationsInput | string
   field?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   extras?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -374,12 +362,11 @@ export type PracticeLessonUpdateManyMutationInput = {
 
 export type PracticeLessonUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.StringFieldUpdateOperationsInput | string
   field?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   extras?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   goal?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  lessonId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -394,42 +381,46 @@ export type PracticeLessonOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type PracticeLessonNullableScalarRelationFilter = {
+  is?: Prisma.PracticeLessonWhereInput | null
+  isNot?: Prisma.PracticeLessonWhereInput | null
+}
+
 export type PracticeLessonCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   author?: Prisma.SortOrder
   field?: Prisma.SortOrder
   extras?: Prisma.SortOrder
   goal?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type PracticeLessonAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
 }
 
 export type PracticeLessonMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   author?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type PracticeLessonMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   author?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type PracticeLessonSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  lessonId?: Prisma.SortOrder
 }
 
 export type PracticeLessonCreateNestedManyWithoutCompletedByInput = {
@@ -470,25 +461,55 @@ export type PracticeLessonUncheckedUpdateManyWithoutCompletedByNestedInput = {
   deleteMany?: Prisma.PracticeLessonScalarWhereInput | Prisma.PracticeLessonScalarWhereInput[]
 }
 
+export type PracticeLessonCreateNestedOneWithoutLessonInput = {
+  create?: Prisma.XOR<Prisma.PracticeLessonCreateWithoutLessonInput, Prisma.PracticeLessonUncheckedCreateWithoutLessonInput>
+  connectOrCreate?: Prisma.PracticeLessonCreateOrConnectWithoutLessonInput
+  connect?: Prisma.PracticeLessonWhereUniqueInput
+}
+
+export type PracticeLessonUncheckedCreateNestedOneWithoutLessonInput = {
+  create?: Prisma.XOR<Prisma.PracticeLessonCreateWithoutLessonInput, Prisma.PracticeLessonUncheckedCreateWithoutLessonInput>
+  connectOrCreate?: Prisma.PracticeLessonCreateOrConnectWithoutLessonInput
+  connect?: Prisma.PracticeLessonWhereUniqueInput
+}
+
+export type PracticeLessonUpdateOneWithoutLessonNestedInput = {
+  create?: Prisma.XOR<Prisma.PracticeLessonCreateWithoutLessonInput, Prisma.PracticeLessonUncheckedCreateWithoutLessonInput>
+  connectOrCreate?: Prisma.PracticeLessonCreateOrConnectWithoutLessonInput
+  upsert?: Prisma.PracticeLessonUpsertWithoutLessonInput
+  disconnect?: Prisma.PracticeLessonWhereInput | boolean
+  delete?: Prisma.PracticeLessonWhereInput | boolean
+  connect?: Prisma.PracticeLessonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PracticeLessonUpdateToOneWithWhereWithoutLessonInput, Prisma.PracticeLessonUpdateWithoutLessonInput>, Prisma.PracticeLessonUncheckedUpdateWithoutLessonInput>
+}
+
+export type PracticeLessonUncheckedUpdateOneWithoutLessonNestedInput = {
+  create?: Prisma.XOR<Prisma.PracticeLessonCreateWithoutLessonInput, Prisma.PracticeLessonUncheckedCreateWithoutLessonInput>
+  connectOrCreate?: Prisma.PracticeLessonCreateOrConnectWithoutLessonInput
+  upsert?: Prisma.PracticeLessonUpsertWithoutLessonInput
+  disconnect?: Prisma.PracticeLessonWhereInput | boolean
+  delete?: Prisma.PracticeLessonWhereInput | boolean
+  connect?: Prisma.PracticeLessonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PracticeLessonUpdateToOneWithWhereWithoutLessonInput, Prisma.PracticeLessonUpdateWithoutLessonInput>, Prisma.PracticeLessonUncheckedUpdateWithoutLessonInput>
+}
+
 export type PracticeLessonCreateWithoutCompletedByInput = {
-  title: string
-  description: string
   author: string
   field: Prisma.JsonNullValueInput | runtime.InputJsonValue
   extras: Prisma.JsonNullValueInput | runtime.InputJsonValue
   goal: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  lesson: Prisma.LessonCreateNestedOneWithoutPracticeInput
 }
 
 export type PracticeLessonUncheckedCreateWithoutCompletedByInput = {
   id?: number
-  title: string
-  description: string
   author: string
   field: Prisma.JsonNullValueInput | runtime.InputJsonValue
   extras: Prisma.JsonNullValueInput | runtime.InputJsonValue
   goal: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  lessonId: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -519,47 +540,101 @@ export type PracticeLessonScalarWhereInput = {
   OR?: Prisma.PracticeLessonScalarWhereInput[]
   NOT?: Prisma.PracticeLessonScalarWhereInput | Prisma.PracticeLessonScalarWhereInput[]
   id?: Prisma.IntFilter<"PracticeLesson"> | number
-  title?: Prisma.StringFilter<"PracticeLesson"> | string
-  description?: Prisma.StringFilter<"PracticeLesson"> | string
   author?: Prisma.StringFilter<"PracticeLesson"> | string
   field?: Prisma.JsonFilter<"PracticeLesson">
   extras?: Prisma.JsonFilter<"PracticeLesson">
   goal?: Prisma.JsonFilter<"PracticeLesson">
+  lessonId?: Prisma.IntFilter<"PracticeLesson"> | number
   createdAt?: Prisma.DateTimeFilter<"PracticeLesson"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PracticeLesson"> | Date | string
 }
 
-export type PracticeLessonUpdateWithoutCompletedByInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+export type PracticeLessonCreateWithoutLessonInput = {
+  author: string
+  field: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  extras: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  goal: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  completedBy?: Prisma.UserCreateNestedManyWithoutCompletedPracticeLessonsInput
+}
+
+export type PracticeLessonUncheckedCreateWithoutLessonInput = {
+  id?: number
+  author: string
+  field: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  extras: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  goal: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  completedBy?: Prisma.UserUncheckedCreateNestedManyWithoutCompletedPracticeLessonsInput
+}
+
+export type PracticeLessonCreateOrConnectWithoutLessonInput = {
+  where: Prisma.PracticeLessonWhereUniqueInput
+  create: Prisma.XOR<Prisma.PracticeLessonCreateWithoutLessonInput, Prisma.PracticeLessonUncheckedCreateWithoutLessonInput>
+}
+
+export type PracticeLessonUpsertWithoutLessonInput = {
+  update: Prisma.XOR<Prisma.PracticeLessonUpdateWithoutLessonInput, Prisma.PracticeLessonUncheckedUpdateWithoutLessonInput>
+  create: Prisma.XOR<Prisma.PracticeLessonCreateWithoutLessonInput, Prisma.PracticeLessonUncheckedCreateWithoutLessonInput>
+  where?: Prisma.PracticeLessonWhereInput
+}
+
+export type PracticeLessonUpdateToOneWithWhereWithoutLessonInput = {
+  where?: Prisma.PracticeLessonWhereInput
+  data: Prisma.XOR<Prisma.PracticeLessonUpdateWithoutLessonInput, Prisma.PracticeLessonUncheckedUpdateWithoutLessonInput>
+}
+
+export type PracticeLessonUpdateWithoutLessonInput = {
   author?: Prisma.StringFieldUpdateOperationsInput | string
   field?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   extras?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   goal?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completedBy?: Prisma.UserUpdateManyWithoutCompletedPracticeLessonsNestedInput
 }
 
-export type PracticeLessonUncheckedUpdateWithoutCompletedByInput = {
+export type PracticeLessonUncheckedUpdateWithoutLessonInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.StringFieldUpdateOperationsInput | string
   field?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   extras?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   goal?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completedBy?: Prisma.UserUncheckedUpdateManyWithoutCompletedPracticeLessonsNestedInput
+}
+
+export type PracticeLessonUpdateWithoutCompletedByInput = {
+  author?: Prisma.StringFieldUpdateOperationsInput | string
+  field?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  extras?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  goal?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lesson?: Prisma.LessonUpdateOneRequiredWithoutPracticeNestedInput
+}
+
+export type PracticeLessonUncheckedUpdateWithoutCompletedByInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  author?: Prisma.StringFieldUpdateOperationsInput | string
+  field?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  extras?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  goal?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  lessonId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PracticeLessonUncheckedUpdateManyWithoutCompletedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.StringFieldUpdateOperationsInput | string
   field?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   extras?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   goal?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  lessonId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -597,75 +672,79 @@ export type PracticeLessonCountOutputTypeCountCompletedByArgs<ExtArgs extends ru
 
 export type PracticeLessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  title?: boolean
-  description?: boolean
   author?: boolean
   field?: boolean
   extras?: boolean
   goal?: boolean
+  lessonId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
   completedBy?: boolean | Prisma.PracticeLesson$completedByArgs<ExtArgs>
   _count?: boolean | Prisma.PracticeLessonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["practiceLesson"]>
 
 export type PracticeLessonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  title?: boolean
-  description?: boolean
   author?: boolean
   field?: boolean
   extras?: boolean
   goal?: boolean
+  lessonId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["practiceLesson"]>
 
 export type PracticeLessonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  title?: boolean
-  description?: boolean
   author?: boolean
   field?: boolean
   extras?: boolean
   goal?: boolean
+  lessonId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["practiceLesson"]>
 
 export type PracticeLessonSelectScalar = {
   id?: boolean
-  title?: boolean
-  description?: boolean
   author?: boolean
   field?: boolean
   extras?: boolean
   goal?: boolean
+  lessonId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PracticeLessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "author" | "field" | "extras" | "goal" | "createdAt" | "updatedAt", ExtArgs["result"]["practiceLesson"]>
+export type PracticeLessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "author" | "field" | "extras" | "goal" | "lessonId" | "createdAt" | "updatedAt", ExtArgs["result"]["practiceLesson"]>
 export type PracticeLessonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
   completedBy?: boolean | Prisma.PracticeLesson$completedByArgs<ExtArgs>
   _count?: boolean | Prisma.PracticeLessonCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type PracticeLessonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type PracticeLessonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type PracticeLessonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
+}
+export type PracticeLessonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
+}
 
 export type $PracticeLessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PracticeLesson"
   objects: {
+    lesson: Prisma.$LessonPayload<ExtArgs>
     completedBy: Prisma.$UserPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    title: string
-    description: string
     author: string
     field: runtime.JsonValue
     extras: runtime.JsonValue
     goal: runtime.JsonValue
+    lessonId: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["practiceLesson"]>
@@ -1062,6 +1141,7 @@ readonly fields: PracticeLessonFieldRefs;
  */
 export interface Prisma__PracticeLessonClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  lesson<T extends Prisma.LessonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LessonDefaultArgs<ExtArgs>>): Prisma.Prisma__LessonClient<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   completedBy<T extends Prisma.PracticeLesson$completedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PracticeLesson$completedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1093,12 +1173,11 @@ export interface Prisma__PracticeLessonClient<T, Null = never, ExtArgs extends r
  */
 export interface PracticeLessonFieldRefs {
   readonly id: Prisma.FieldRef<"PracticeLesson", 'Int'>
-  readonly title: Prisma.FieldRef<"PracticeLesson", 'String'>
-  readonly description: Prisma.FieldRef<"PracticeLesson", 'String'>
   readonly author: Prisma.FieldRef<"PracticeLesson", 'String'>
   readonly field: Prisma.FieldRef<"PracticeLesson", 'Json'>
   readonly extras: Prisma.FieldRef<"PracticeLesson", 'Json'>
   readonly goal: Prisma.FieldRef<"PracticeLesson", 'Json'>
+  readonly lessonId: Prisma.FieldRef<"PracticeLesson", 'Int'>
   readonly createdAt: Prisma.FieldRef<"PracticeLesson", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PracticeLesson", 'DateTime'>
 }
@@ -1350,6 +1429,10 @@ export type PracticeLessonCreateManyAndReturnArgs<ExtArgs extends runtime.Types.
    */
   data: Prisma.PracticeLessonCreateManyInput | Prisma.PracticeLessonCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PracticeLessonIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1420,6 +1503,10 @@ export type PracticeLessonUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.
    * Limit how many PracticeLessons to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PracticeLessonIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
