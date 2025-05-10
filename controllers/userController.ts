@@ -13,16 +13,7 @@ assert(secret, "ключ потеряли")
 const secretKey = await getKey(secret)
 
 export async function getAll(ctx: Context) {
-	ctx.response.body = await prisma.user.findMany({
-		include: {
-			completedTheoryLessons: {
-				select: {
-					id: true,
-					title: true,
-				},
-			},
-		},
-	})
+	ctx.response.body = await prisma.user.findMany()
 }
 
 export async function getById(ctx: Context & { params: { id: string } }) {

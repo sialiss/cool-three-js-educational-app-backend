@@ -23,8 +23,8 @@ export async function checkUserId(jwt: string, secret_key: CryptoKey) {
 }
 
 type SafeUser = Omit<User, "password"> & {
-	completedTheoryLessons: { id: number; title: string }[]
-	completedPracticeLessons: { id: number; title: string }[]
+	completedTheoryLessons: { id: number }[]
+	completedPracticeLessons: { id: number }[]
 }
 
 type GetUserResult = { user: SafeUser } | { error: string; status: number }
@@ -43,10 +43,10 @@ export async function getUserByToken(
 		where: { id },
 		include: {
 			completedTheoryLessons: {
-				select: { id: true, title: true },
+				select: { id: true },
 			},
 			completedPracticeLessons: {
-				select: { id: true, title: true },
+				select: { id: true },
 			},
 		},
 	})

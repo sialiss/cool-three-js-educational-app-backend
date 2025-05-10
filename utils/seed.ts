@@ -1,6 +1,7 @@
 // seed.ts
 import process from "node:process"
 import { PrismaClient } from "../deps.ts"
+import { hashPassword } from "./crypto.ts";
 
 const prisma = new PrismaClient({
 	datasources: {
@@ -81,16 +82,60 @@ const lessons = [
 ]
 
 async function main() {
+	console.log("🧹 Очистка базы...")
+	await prisma.practiceLesson.deleteMany()
 	await prisma.theoryLesson.deleteMany()
-	await prisma.theoryLesson.createMany({ data: lessons })
+	await prisma.lesson.deleteMany()
+	await prisma.user.deleteMany()
+
+	console.log("🌱 Добавление уроков...")
+
+	for (const { title, description, content } of lessons) {
+		const lesson = await prisma.lesson.create({
+			data: { title, description },
+		})
+
+		await prisma.theoryLesson.create({
+			data: {
+				content,
+				lesson: { connect: { id: lesson.id } },
+			},
+		})
+	}
+
+	console.log("👤 Создание пользователей...")
+
+	await prisma.user.create({
+		data: {
+			name: "Админ",
+			surname: "Симуляторов",
+			patronymic: "Иванович",
+			login: "admin",
+			password: await hashPassword("password"),
+			email: "admin@example.com",
+			phone: "+70000000000",
+			role: "admin",
+		},
+	})
+	await prisma.user.create({
+		data: {
+			name: "Пользователь",
+			surname: "Симуляторов",
+			patronymic: "Иванович",
+			login: "user",
+			password: await hashPassword("password"),
+			email: "user@example.com",
+			phone: "+71000000000",
+			role: "user",
+		},
+	})
+
+	console.log("✅ Сид завершён успешно")
 }
 
 main()
-	.then(() => {
-		console.log("🌱 Теоретические уроки добавлены в базу данных")
-	})
 	.catch(e => {
-		console.error(e)
+		console.error("❌ Ошибка при сидировании:", e)
 		process.exit(1)
 	})
 	.finally(async () => {

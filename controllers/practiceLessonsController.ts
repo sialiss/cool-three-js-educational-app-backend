@@ -29,20 +29,35 @@ export async function getOne(ctx: Context & { params: { id: string } }) {
 }
 
 export async function create(ctx: Context) {
-	const { title, description, author, field, extras, goal } =
-		await ctx.request.body().value
-	const lesson = await prisma.practiceLesson.create({
-		data: {
-			author,
-			field,
-			extras,
-			goal,
-			lesson: {
-				create: { title, description },
+	const { lessonId, field, extras, goal, author } = await ctx.request.body()
+		.value
+
+	if (!lessonId || !field) {
+		ctx.response.status = 400
+		ctx.response.body = { error: "Обязательные поля не указаны" }
+		return
+	}
+
+	try {
+		const lesson = await prisma.practiceLesson.create({
+			data: {
+				author,
+				field,
+				extras,
+				goal,
+				lesson: {
+					connect: { id: lessonId },
+				},
 			},
-		},
-	})
-	ctx.response.body = lesson
+		})
+
+		ctx.response.status = 201
+		ctx.response.body = { lesson, ok: true }
+	} catch (err) {
+		console.error("Ошибка при создании практики:", err)
+		ctx.response.status = 500
+		ctx.response.body = { error: "Не удалось создать практику" }
+	}
 }
 
 export async function update(ctx: Context & { params: { id: string } }) {

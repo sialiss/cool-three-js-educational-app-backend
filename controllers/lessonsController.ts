@@ -4,6 +4,10 @@ import { prisma } from "../utils/prisma.ts"
 export async function getAll(ctx: Context) {
 	const lessons = await prisma.lesson.findMany({
 		orderBy: { id: "asc" },
+		include: {
+			theory: true,
+			practice: true,
+		},
 	})
 	ctx.response.body = lessons
 }
