@@ -29,7 +29,7 @@ export async function getOne(ctx: Context & { params: { id: string } }) {
 }
 
 export async function create(ctx: Context) {
-	const { lessonId, field, extras, goal, author } = await ctx.request.body()
+	const { lessonId, size, field, extras, goal, author } = await ctx.request.body()
 		.value
 
 	if (!lessonId || !field) {
@@ -42,6 +42,7 @@ export async function create(ctx: Context) {
 		const lesson = await prisma.practiceLesson.create({
 			data: {
 				author,
+                size,
 				field,
 				extras,
 				goal,
@@ -62,13 +63,14 @@ export async function create(ctx: Context) {
 
 export async function update(ctx: Context & { params: { id: string } }) {
 	const id = Number(ctx.params.id)
-	const { title, description, author, field, extras, goal } =
+	const { title, description, author, size, field, extras, goal } =
 		await ctx.request.body().value
 
 	const practice = await prisma.practiceLesson.update({
 		where: { id },
 		data: {
 			author,
+            size,
 			field,
 			extras,
 			goal,

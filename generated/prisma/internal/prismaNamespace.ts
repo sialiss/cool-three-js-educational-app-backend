@@ -790,6 +790,7 @@ export type TheoryLessonScalarFieldEnum = (typeof TheoryLessonScalarFieldEnum)[k
 export const PracticeLessonScalarFieldEnum = {
   id: 'id',
   author: 'author',
+  size: 'size',
   field: 'field',
   extras: 'extras',
   goal: 'goal',

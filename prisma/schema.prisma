@@ -55,6 +55,7 @@ model TheoryLesson {
 model PracticeLesson {
   id          Int      @id @default(autoincrement())
   author      String
+  size        Json    
   field       Json
   extras      Json
   goal        Json
