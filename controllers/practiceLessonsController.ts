@@ -29,8 +29,8 @@ export async function getOne(ctx: Context & { params: { id: string } }) {
 }
 
 export async function create(ctx: Context) {
-	const { lessonId, size, field, extras, goal, author } = await ctx.request.body()
-		.value
+	const { lessonId, size, field, extras, goal, author } =
+		await ctx.request.body().value
 
 	if (!lessonId || !field) {
 		ctx.response.status = 400
@@ -42,7 +42,7 @@ export async function create(ctx: Context) {
 		const lesson = await prisma.practiceLesson.create({
 			data: {
 				author,
-                size,
+				size,
 				field,
 				extras,
 				goal,
@@ -53,11 +53,21 @@ export async function create(ctx: Context) {
 		})
 
 		ctx.response.status = 201
-		ctx.response.body = { lesson, ok: true }
+		ctx.response.body = { lesson, created: true }
 	} catch (err) {
 		console.error("Ошибка при создании практики:", err)
-		ctx.response.status = 500
-		ctx.response.body = { error: "Не удалось создать практику" }
+
+		const existing = await prisma.practiceLesson.findUnique({
+			where: { lessonId },
+			select: { id: true },
+		})
+
+		ctx.response.status = 200 // намеренно 200, чтобы frontend мог различать ситуацию
+		ctx.response.body = {
+			created: false,
+			alreadyExists: true,
+			existingLessonId: existing?.id ?? null,
+		}
 	}
 }
 
@@ -66,17 +76,22 @@ export async function update(ctx: Context & { params: { id: string } }) {
 	const { title, description, author, size, field, extras, goal } =
 		await ctx.request.body().value
 
+	// deno-lint-ignore no-explicit-any
+	const lessonUpdateData: Record<string, any> = {}
+	if (title?.trim()) lessonUpdateData.title = title
+	if (description?.trim()) lessonUpdateData.description = description
+
 	const practice = await prisma.practiceLesson.update({
 		where: { id },
 		data: {
 			author,
-            size,
+			size,
 			field,
 			extras,
 			goal,
-			lesson: {
-				update: { title, description },
-			},
+			...(Object.keys(lessonUpdateData).length > 0 && {
+				lesson: { update: lessonUpdateData },
+			}),
 		},
 		include: { lesson: true },
 	})
