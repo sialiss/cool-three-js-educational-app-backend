@@ -13,18 +13,36 @@ assert(secret, "ключ потеряли")
 const secretKey = await getKey(secret)
 
 export async function getAll(ctx: Context) {
-	ctx.response.body = await prisma.user.findMany()
+	ctx.response.body = await prisma.user.findMany({
+		include: {
+			groups: true,
+		},
+	})
 }
 
 export async function getById(ctx: Context & { params: { id: string } }) {
 	const id = Number(ctx.params.id)
-	ctx.response.body = await prisma.user.findUnique({ where: { id } })
+	ctx.response.body = await prisma.user.findUnique({
+		where: { id },
+		include: {
+			groups: true,
+		},
+	})
 }
 
 export async function create(ctx: Context) {
 	const body = await ctx.request.body({ type: "json" }).value
-	const { name, surname, patronymic, login, password, email, phone, role } =
-		body
+	const {
+		name,
+		surname,
+		patronymic,
+		login,
+		password,
+		email,
+		phone,
+		role,
+		groupIds = [],
+	} = body
 
 	if (!name || !surname || !login || !password || !email || !role) {
 		ctx.response.status = 400
@@ -42,6 +60,12 @@ export async function create(ctx: Context) {
 			email,
 			phone,
 			role,
+			groups: {
+				connect: groupIds.map((id: number) => ({ id })),
+			},
+		},
+		include: {
+			groups: true,
 		},
 	})
 
@@ -57,20 +81,40 @@ export async function remove(ctx: Context & { params: { id: string } }) {
 
 export async function update(ctx: Context & { params: { id: string } }) {
 	const id = Number(ctx.params.id)
-	const { name, surname, patronymic, email, login, password, phone, role } =
-		await ctx.request.body().value
+	const {
+		name,
+		surname,
+		patronymic,
+		email,
+		login,
+		password,
+		phone,
+		role,
+		groupIds,
+	} = await ctx.request.body().value
+
+	const data: any = {
+		name,
+		surname,
+		patronymic,
+		email,
+		login,
+		password: await hashPassword(password),
+		phone,
+		role,
+	}
+
+	if (Array.isArray(groupIds)) {
+		data.groups = {
+			set: groupIds.map((id: number) => ({ id })),
+		}
+	}
 
 	const updatedUser = await prisma.user.update({
 		where: { id },
-		data: {
-			name,
-			surname,
-			patronymic,
-			email,
-			login,
-			password: await hashPassword(password),
-			phone,
-			role,
+		data,
+		include: {
+			groups: true,
 		},
 	})
 

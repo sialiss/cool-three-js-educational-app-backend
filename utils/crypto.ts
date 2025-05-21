@@ -25,6 +25,7 @@ export async function checkUserId(jwt: string, secret_key: CryptoKey) {
 type SafeUser = Omit<User, "password"> & {
 	completedTheoryLessons: { id: number }[]
 	completedPracticeLessons: { id: number }[]
+	groups: { id: number }[]
 }
 
 type GetUserResult = { user: SafeUser } | { error: string; status: number }
@@ -46,6 +47,9 @@ export async function getUserByToken(
 				select: { id: true },
 			},
 			completedPracticeLessons: {
+				select: { id: true },
+			},
+			groups: {
 				select: { id: true },
 			},
 		},

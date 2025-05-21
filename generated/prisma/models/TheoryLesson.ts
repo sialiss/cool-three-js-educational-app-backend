@@ -445,10 +445,6 @@ export type TheoryLessonUncheckedUpdateOneWithoutLessonNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TheoryLessonUpdateToOneWithWhereWithoutLessonInput, Prisma.TheoryLessonUpdateWithoutLessonInput>, Prisma.TheoryLessonUncheckedUpdateWithoutLessonInput>
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type TheoryLessonCreateWithoutCompletedByInput = {
   content: string
   createdAt?: Date | string

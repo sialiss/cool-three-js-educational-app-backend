@@ -1,7 +1,7 @@
 // seed.ts
 import process from "node:process"
 import { PrismaClient } from "../deps.ts"
-import { hashPassword } from "./crypto.ts";
+import { hashPassword } from "./crypto.ts"
 
 const prisma = new PrismaClient({
 	datasources: {
@@ -103,9 +103,9 @@ async function main() {
 		})
 	}
 
-	console.log("👤 Создание пользователей...")
+	console.log("👤 Создание пользователей... и групп")
 
-	await prisma.user.create({
+	const admin = await prisma.user.create({
 		data: {
 			name: "Админ",
 			surname: "Симуляторов",
@@ -117,7 +117,7 @@ async function main() {
 			role: "admin",
 		},
 	})
-	await prisma.user.create({
+	const user = await prisma.user.create({
 		data: {
 			name: "Пользователь",
 			surname: "Симуляторов",
@@ -129,6 +129,40 @@ async function main() {
 			role: "user",
 		},
 	})
+	const group = await prisma.group.create({
+		data: {
+			name: "Группа 101",
+			startDate: new Date("2024-01-01"),
+			endDate: new Date("2024-12-31"),
+			users: {
+				connect: { id: user.id }, // подключаем user к группе
+			},
+		},
+	})
+
+	const lessonsInDb = await prisma.lesson.findMany({ orderBy: { id: "asc" } })
+
+	if (lessonsInDb[1]) {
+		await prisma.lesson.update({
+			where: { id: lessonsInDb[1].id },
+			data: {
+				allowedUsers: {
+					connect: { id: admin.id },
+				},
+			},
+		})
+	}
+
+	if (lessonsInDb[1]) {
+		await prisma.lesson.update({
+			where: { id: lessonsInDb[1].id },
+			data: {
+				allowedGroups: {
+					connect: { id: group.id },
+				},
+			},
+		})
+	}
 
 	console.log("✅ Сид завершён успешно")
 }

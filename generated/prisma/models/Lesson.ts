@@ -201,6 +201,8 @@ export type LessonWhereInput = {
   description?: Prisma.StringFilter<"Lesson"> | string
   theory?: Prisma.XOR<Prisma.TheoryLessonNullableScalarRelationFilter, Prisma.TheoryLessonWhereInput> | null
   practice?: Prisma.XOR<Prisma.PracticeLessonNullableScalarRelationFilter, Prisma.PracticeLessonWhereInput> | null
+  allowedUsers?: Prisma.UserListRelationFilter
+  allowedGroups?: Prisma.GroupListRelationFilter
 }
 
 export type LessonOrderByWithRelationInput = {
@@ -209,6 +211,8 @@ export type LessonOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   theory?: Prisma.TheoryLessonOrderByWithRelationInput
   practice?: Prisma.PracticeLessonOrderByWithRelationInput
+  allowedUsers?: Prisma.UserOrderByRelationAggregateInput
+  allowedGroups?: Prisma.GroupOrderByRelationAggregateInput
 }
 
 export type LessonWhereUniqueInput = Prisma.AtLeast<{
@@ -220,6 +224,8 @@ export type LessonWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"Lesson"> | string
   theory?: Prisma.XOR<Prisma.TheoryLessonNullableScalarRelationFilter, Prisma.TheoryLessonWhereInput> | null
   practice?: Prisma.XOR<Prisma.PracticeLessonNullableScalarRelationFilter, Prisma.PracticeLessonWhereInput> | null
+  allowedUsers?: Prisma.UserListRelationFilter
+  allowedGroups?: Prisma.GroupListRelationFilter
 }, "id">
 
 export type LessonOrderByWithAggregationInput = {
@@ -247,6 +253,8 @@ export type LessonCreateInput = {
   description: string
   theory?: Prisma.TheoryLessonCreateNestedOneWithoutLessonInput
   practice?: Prisma.PracticeLessonCreateNestedOneWithoutLessonInput
+  allowedUsers?: Prisma.UserCreateNestedManyWithoutAllowedLessonsInput
+  allowedGroups?: Prisma.GroupCreateNestedManyWithoutLessonsInput
 }
 
 export type LessonUncheckedCreateInput = {
@@ -255,6 +263,8 @@ export type LessonUncheckedCreateInput = {
   description: string
   theory?: Prisma.TheoryLessonUncheckedCreateNestedOneWithoutLessonInput
   practice?: Prisma.PracticeLessonUncheckedCreateNestedOneWithoutLessonInput
+  allowedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutAllowedLessonsInput
+  allowedGroups?: Prisma.GroupUncheckedCreateNestedManyWithoutLessonsInput
 }
 
 export type LessonUpdateInput = {
@@ -262,6 +272,8 @@ export type LessonUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   theory?: Prisma.TheoryLessonUpdateOneWithoutLessonNestedInput
   practice?: Prisma.PracticeLessonUpdateOneWithoutLessonNestedInput
+  allowedUsers?: Prisma.UserUpdateManyWithoutAllowedLessonsNestedInput
+  allowedGroups?: Prisma.GroupUpdateManyWithoutLessonsNestedInput
 }
 
 export type LessonUncheckedUpdateInput = {
@@ -270,6 +282,8 @@ export type LessonUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   theory?: Prisma.TheoryLessonUncheckedUpdateOneWithoutLessonNestedInput
   practice?: Prisma.PracticeLessonUncheckedUpdateOneWithoutLessonNestedInput
+  allowedUsers?: Prisma.UserUncheckedUpdateManyWithoutAllowedLessonsNestedInput
+  allowedGroups?: Prisma.GroupUncheckedUpdateManyWithoutLessonsNestedInput
 }
 
 export type LessonCreateManyInput = {
@@ -287,6 +301,16 @@ export type LessonUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type LessonListRelationFilter = {
+  every?: Prisma.LessonWhereInput
+  some?: Prisma.LessonWhereInput
+  none?: Prisma.LessonWhereInput
+}
+
+export type LessonOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type LessonCountOrderByAggregateInput = {
@@ -320,6 +344,82 @@ export type LessonScalarRelationFilter = {
   isNot?: Prisma.LessonWhereInput
 }
 
+export type LessonCreateNestedManyWithoutAllowedUsersInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutAllowedUsersInput, Prisma.LessonUncheckedCreateWithoutAllowedUsersInput> | Prisma.LessonCreateWithoutAllowedUsersInput[] | Prisma.LessonUncheckedCreateWithoutAllowedUsersInput[]
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutAllowedUsersInput | Prisma.LessonCreateOrConnectWithoutAllowedUsersInput[]
+  connect?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+}
+
+export type LessonUncheckedCreateNestedManyWithoutAllowedUsersInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutAllowedUsersInput, Prisma.LessonUncheckedCreateWithoutAllowedUsersInput> | Prisma.LessonCreateWithoutAllowedUsersInput[] | Prisma.LessonUncheckedCreateWithoutAllowedUsersInput[]
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutAllowedUsersInput | Prisma.LessonCreateOrConnectWithoutAllowedUsersInput[]
+  connect?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+}
+
+export type LessonUpdateManyWithoutAllowedUsersNestedInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutAllowedUsersInput, Prisma.LessonUncheckedCreateWithoutAllowedUsersInput> | Prisma.LessonCreateWithoutAllowedUsersInput[] | Prisma.LessonUncheckedCreateWithoutAllowedUsersInput[]
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutAllowedUsersInput | Prisma.LessonCreateOrConnectWithoutAllowedUsersInput[]
+  upsert?: Prisma.LessonUpsertWithWhereUniqueWithoutAllowedUsersInput | Prisma.LessonUpsertWithWhereUniqueWithoutAllowedUsersInput[]
+  set?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  disconnect?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  delete?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  connect?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  update?: Prisma.LessonUpdateWithWhereUniqueWithoutAllowedUsersInput | Prisma.LessonUpdateWithWhereUniqueWithoutAllowedUsersInput[]
+  updateMany?: Prisma.LessonUpdateManyWithWhereWithoutAllowedUsersInput | Prisma.LessonUpdateManyWithWhereWithoutAllowedUsersInput[]
+  deleteMany?: Prisma.LessonScalarWhereInput | Prisma.LessonScalarWhereInput[]
+}
+
+export type LessonUncheckedUpdateManyWithoutAllowedUsersNestedInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutAllowedUsersInput, Prisma.LessonUncheckedCreateWithoutAllowedUsersInput> | Prisma.LessonCreateWithoutAllowedUsersInput[] | Prisma.LessonUncheckedCreateWithoutAllowedUsersInput[]
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutAllowedUsersInput | Prisma.LessonCreateOrConnectWithoutAllowedUsersInput[]
+  upsert?: Prisma.LessonUpsertWithWhereUniqueWithoutAllowedUsersInput | Prisma.LessonUpsertWithWhereUniqueWithoutAllowedUsersInput[]
+  set?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  disconnect?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  delete?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  connect?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  update?: Prisma.LessonUpdateWithWhereUniqueWithoutAllowedUsersInput | Prisma.LessonUpdateWithWhereUniqueWithoutAllowedUsersInput[]
+  updateMany?: Prisma.LessonUpdateManyWithWhereWithoutAllowedUsersInput | Prisma.LessonUpdateManyWithWhereWithoutAllowedUsersInput[]
+  deleteMany?: Prisma.LessonScalarWhereInput | Prisma.LessonScalarWhereInput[]
+}
+
+export type LessonCreateNestedManyWithoutAllowedGroupsInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutAllowedGroupsInput, Prisma.LessonUncheckedCreateWithoutAllowedGroupsInput> | Prisma.LessonCreateWithoutAllowedGroupsInput[] | Prisma.LessonUncheckedCreateWithoutAllowedGroupsInput[]
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutAllowedGroupsInput | Prisma.LessonCreateOrConnectWithoutAllowedGroupsInput[]
+  connect?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+}
+
+export type LessonUncheckedCreateNestedManyWithoutAllowedGroupsInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutAllowedGroupsInput, Prisma.LessonUncheckedCreateWithoutAllowedGroupsInput> | Prisma.LessonCreateWithoutAllowedGroupsInput[] | Prisma.LessonUncheckedCreateWithoutAllowedGroupsInput[]
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutAllowedGroupsInput | Prisma.LessonCreateOrConnectWithoutAllowedGroupsInput[]
+  connect?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+}
+
+export type LessonUpdateManyWithoutAllowedGroupsNestedInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutAllowedGroupsInput, Prisma.LessonUncheckedCreateWithoutAllowedGroupsInput> | Prisma.LessonCreateWithoutAllowedGroupsInput[] | Prisma.LessonUncheckedCreateWithoutAllowedGroupsInput[]
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutAllowedGroupsInput | Prisma.LessonCreateOrConnectWithoutAllowedGroupsInput[]
+  upsert?: Prisma.LessonUpsertWithWhereUniqueWithoutAllowedGroupsInput | Prisma.LessonUpsertWithWhereUniqueWithoutAllowedGroupsInput[]
+  set?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  disconnect?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  delete?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  connect?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  update?: Prisma.LessonUpdateWithWhereUniqueWithoutAllowedGroupsInput | Prisma.LessonUpdateWithWhereUniqueWithoutAllowedGroupsInput[]
+  updateMany?: Prisma.LessonUpdateManyWithWhereWithoutAllowedGroupsInput | Prisma.LessonUpdateManyWithWhereWithoutAllowedGroupsInput[]
+  deleteMany?: Prisma.LessonScalarWhereInput | Prisma.LessonScalarWhereInput[]
+}
+
+export type LessonUncheckedUpdateManyWithoutAllowedGroupsNestedInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutAllowedGroupsInput, Prisma.LessonUncheckedCreateWithoutAllowedGroupsInput> | Prisma.LessonCreateWithoutAllowedGroupsInput[] | Prisma.LessonUncheckedCreateWithoutAllowedGroupsInput[]
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutAllowedGroupsInput | Prisma.LessonCreateOrConnectWithoutAllowedGroupsInput[]
+  upsert?: Prisma.LessonUpsertWithWhereUniqueWithoutAllowedGroupsInput | Prisma.LessonUpsertWithWhereUniqueWithoutAllowedGroupsInput[]
+  set?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  disconnect?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  delete?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  connect?: Prisma.LessonWhereUniqueInput | Prisma.LessonWhereUniqueInput[]
+  update?: Prisma.LessonUpdateWithWhereUniqueWithoutAllowedGroupsInput | Prisma.LessonUpdateWithWhereUniqueWithoutAllowedGroupsInput[]
+  updateMany?: Prisma.LessonUpdateManyWithWhereWithoutAllowedGroupsInput | Prisma.LessonUpdateManyWithWhereWithoutAllowedGroupsInput[]
+  deleteMany?: Prisma.LessonScalarWhereInput | Prisma.LessonScalarWhereInput[]
+}
+
 export type LessonCreateNestedOneWithoutTheoryInput = {
   create?: Prisma.XOR<Prisma.LessonCreateWithoutTheoryInput, Prisma.LessonUncheckedCreateWithoutTheoryInput>
   connectOrCreate?: Prisma.LessonCreateOrConnectWithoutTheoryInput
@@ -348,10 +448,97 @@ export type LessonUpdateOneRequiredWithoutPracticeNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.LessonUpdateToOneWithWhereWithoutPracticeInput, Prisma.LessonUpdateWithoutPracticeInput>, Prisma.LessonUncheckedUpdateWithoutPracticeInput>
 }
 
+export type LessonCreateWithoutAllowedUsersInput = {
+  title: string
+  description: string
+  theory?: Prisma.TheoryLessonCreateNestedOneWithoutLessonInput
+  practice?: Prisma.PracticeLessonCreateNestedOneWithoutLessonInput
+  allowedGroups?: Prisma.GroupCreateNestedManyWithoutLessonsInput
+}
+
+export type LessonUncheckedCreateWithoutAllowedUsersInput = {
+  id?: number
+  title: string
+  description: string
+  theory?: Prisma.TheoryLessonUncheckedCreateNestedOneWithoutLessonInput
+  practice?: Prisma.PracticeLessonUncheckedCreateNestedOneWithoutLessonInput
+  allowedGroups?: Prisma.GroupUncheckedCreateNestedManyWithoutLessonsInput
+}
+
+export type LessonCreateOrConnectWithoutAllowedUsersInput = {
+  where: Prisma.LessonWhereUniqueInput
+  create: Prisma.XOR<Prisma.LessonCreateWithoutAllowedUsersInput, Prisma.LessonUncheckedCreateWithoutAllowedUsersInput>
+}
+
+export type LessonUpsertWithWhereUniqueWithoutAllowedUsersInput = {
+  where: Prisma.LessonWhereUniqueInput
+  update: Prisma.XOR<Prisma.LessonUpdateWithoutAllowedUsersInput, Prisma.LessonUncheckedUpdateWithoutAllowedUsersInput>
+  create: Prisma.XOR<Prisma.LessonCreateWithoutAllowedUsersInput, Prisma.LessonUncheckedCreateWithoutAllowedUsersInput>
+}
+
+export type LessonUpdateWithWhereUniqueWithoutAllowedUsersInput = {
+  where: Prisma.LessonWhereUniqueInput
+  data: Prisma.XOR<Prisma.LessonUpdateWithoutAllowedUsersInput, Prisma.LessonUncheckedUpdateWithoutAllowedUsersInput>
+}
+
+export type LessonUpdateManyWithWhereWithoutAllowedUsersInput = {
+  where: Prisma.LessonScalarWhereInput
+  data: Prisma.XOR<Prisma.LessonUpdateManyMutationInput, Prisma.LessonUncheckedUpdateManyWithoutAllowedUsersInput>
+}
+
+export type LessonScalarWhereInput = {
+  AND?: Prisma.LessonScalarWhereInput | Prisma.LessonScalarWhereInput[]
+  OR?: Prisma.LessonScalarWhereInput[]
+  NOT?: Prisma.LessonScalarWhereInput | Prisma.LessonScalarWhereInput[]
+  id?: Prisma.IntFilter<"Lesson"> | number
+  title?: Prisma.StringFilter<"Lesson"> | string
+  description?: Prisma.StringFilter<"Lesson"> | string
+}
+
+export type LessonCreateWithoutAllowedGroupsInput = {
+  title: string
+  description: string
+  theory?: Prisma.TheoryLessonCreateNestedOneWithoutLessonInput
+  practice?: Prisma.PracticeLessonCreateNestedOneWithoutLessonInput
+  allowedUsers?: Prisma.UserCreateNestedManyWithoutAllowedLessonsInput
+}
+
+export type LessonUncheckedCreateWithoutAllowedGroupsInput = {
+  id?: number
+  title: string
+  description: string
+  theory?: Prisma.TheoryLessonUncheckedCreateNestedOneWithoutLessonInput
+  practice?: Prisma.PracticeLessonUncheckedCreateNestedOneWithoutLessonInput
+  allowedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutAllowedLessonsInput
+}
+
+export type LessonCreateOrConnectWithoutAllowedGroupsInput = {
+  where: Prisma.LessonWhereUniqueInput
+  create: Prisma.XOR<Prisma.LessonCreateWithoutAllowedGroupsInput, Prisma.LessonUncheckedCreateWithoutAllowedGroupsInput>
+}
+
+export type LessonUpsertWithWhereUniqueWithoutAllowedGroupsInput = {
+  where: Prisma.LessonWhereUniqueInput
+  update: Prisma.XOR<Prisma.LessonUpdateWithoutAllowedGroupsInput, Prisma.LessonUncheckedUpdateWithoutAllowedGroupsInput>
+  create: Prisma.XOR<Prisma.LessonCreateWithoutAllowedGroupsInput, Prisma.LessonUncheckedCreateWithoutAllowedGroupsInput>
+}
+
+export type LessonUpdateWithWhereUniqueWithoutAllowedGroupsInput = {
+  where: Prisma.LessonWhereUniqueInput
+  data: Prisma.XOR<Prisma.LessonUpdateWithoutAllowedGroupsInput, Prisma.LessonUncheckedUpdateWithoutAllowedGroupsInput>
+}
+
+export type LessonUpdateManyWithWhereWithoutAllowedGroupsInput = {
+  where: Prisma.LessonScalarWhereInput
+  data: Prisma.XOR<Prisma.LessonUpdateManyMutationInput, Prisma.LessonUncheckedUpdateManyWithoutAllowedGroupsInput>
+}
+
 export type LessonCreateWithoutTheoryInput = {
   title: string
   description: string
   practice?: Prisma.PracticeLessonCreateNestedOneWithoutLessonInput
+  allowedUsers?: Prisma.UserCreateNestedManyWithoutAllowedLessonsInput
+  allowedGroups?: Prisma.GroupCreateNestedManyWithoutLessonsInput
 }
 
 export type LessonUncheckedCreateWithoutTheoryInput = {
@@ -359,6 +546,8 @@ export type LessonUncheckedCreateWithoutTheoryInput = {
   title: string
   description: string
   practice?: Prisma.PracticeLessonUncheckedCreateNestedOneWithoutLessonInput
+  allowedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutAllowedLessonsInput
+  allowedGroups?: Prisma.GroupUncheckedCreateNestedManyWithoutLessonsInput
 }
 
 export type LessonCreateOrConnectWithoutTheoryInput = {
@@ -381,6 +570,8 @@ export type LessonUpdateWithoutTheoryInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   practice?: Prisma.PracticeLessonUpdateOneWithoutLessonNestedInput
+  allowedUsers?: Prisma.UserUpdateManyWithoutAllowedLessonsNestedInput
+  allowedGroups?: Prisma.GroupUpdateManyWithoutLessonsNestedInput
 }
 
 export type LessonUncheckedUpdateWithoutTheoryInput = {
@@ -388,12 +579,16 @@ export type LessonUncheckedUpdateWithoutTheoryInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   practice?: Prisma.PracticeLessonUncheckedUpdateOneWithoutLessonNestedInput
+  allowedUsers?: Prisma.UserUncheckedUpdateManyWithoutAllowedLessonsNestedInput
+  allowedGroups?: Prisma.GroupUncheckedUpdateManyWithoutLessonsNestedInput
 }
 
 export type LessonCreateWithoutPracticeInput = {
   title: string
   description: string
   theory?: Prisma.TheoryLessonCreateNestedOneWithoutLessonInput
+  allowedUsers?: Prisma.UserCreateNestedManyWithoutAllowedLessonsInput
+  allowedGroups?: Prisma.GroupCreateNestedManyWithoutLessonsInput
 }
 
 export type LessonUncheckedCreateWithoutPracticeInput = {
@@ -401,6 +596,8 @@ export type LessonUncheckedCreateWithoutPracticeInput = {
   title: string
   description: string
   theory?: Prisma.TheoryLessonUncheckedCreateNestedOneWithoutLessonInput
+  allowedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutAllowedLessonsInput
+  allowedGroups?: Prisma.GroupUncheckedCreateNestedManyWithoutLessonsInput
 }
 
 export type LessonCreateOrConnectWithoutPracticeInput = {
@@ -423,6 +620,8 @@ export type LessonUpdateWithoutPracticeInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   theory?: Prisma.TheoryLessonUpdateOneWithoutLessonNestedInput
+  allowedUsers?: Prisma.UserUpdateManyWithoutAllowedLessonsNestedInput
+  allowedGroups?: Prisma.GroupUpdateManyWithoutLessonsNestedInput
 }
 
 export type LessonUncheckedUpdateWithoutPracticeInput = {
@@ -430,8 +629,94 @@ export type LessonUncheckedUpdateWithoutPracticeInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   theory?: Prisma.TheoryLessonUncheckedUpdateOneWithoutLessonNestedInput
+  allowedUsers?: Prisma.UserUncheckedUpdateManyWithoutAllowedLessonsNestedInput
+  allowedGroups?: Prisma.GroupUncheckedUpdateManyWithoutLessonsNestedInput
 }
 
+export type LessonUpdateWithoutAllowedUsersInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  theory?: Prisma.TheoryLessonUpdateOneWithoutLessonNestedInput
+  practice?: Prisma.PracticeLessonUpdateOneWithoutLessonNestedInput
+  allowedGroups?: Prisma.GroupUpdateManyWithoutLessonsNestedInput
+}
+
+export type LessonUncheckedUpdateWithoutAllowedUsersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  theory?: Prisma.TheoryLessonUncheckedUpdateOneWithoutLessonNestedInput
+  practice?: Prisma.PracticeLessonUncheckedUpdateOneWithoutLessonNestedInput
+  allowedGroups?: Prisma.GroupUncheckedUpdateManyWithoutLessonsNestedInput
+}
+
+export type LessonUncheckedUpdateManyWithoutAllowedUsersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type LessonUpdateWithoutAllowedGroupsInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  theory?: Prisma.TheoryLessonUpdateOneWithoutLessonNestedInput
+  practice?: Prisma.PracticeLessonUpdateOneWithoutLessonNestedInput
+  allowedUsers?: Prisma.UserUpdateManyWithoutAllowedLessonsNestedInput
+}
+
+export type LessonUncheckedUpdateWithoutAllowedGroupsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  theory?: Prisma.TheoryLessonUncheckedUpdateOneWithoutLessonNestedInput
+  practice?: Prisma.PracticeLessonUncheckedUpdateOneWithoutLessonNestedInput
+  allowedUsers?: Prisma.UserUncheckedUpdateManyWithoutAllowedLessonsNestedInput
+}
+
+export type LessonUncheckedUpdateManyWithoutAllowedGroupsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+
+/**
+ * Count Type LessonCountOutputType
+ */
+
+export type LessonCountOutputType = {
+  allowedUsers: number
+  allowedGroups: number
+}
+
+export type LessonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  allowedUsers?: boolean | LessonCountOutputTypeCountAllowedUsersArgs
+  allowedGroups?: boolean | LessonCountOutputTypeCountAllowedGroupsArgs
+}
+
+/**
+ * LessonCountOutputType without action
+ */
+export type LessonCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LessonCountOutputType
+   */
+  select?: Prisma.LessonCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * LessonCountOutputType without action
+ */
+export type LessonCountOutputTypeCountAllowedUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * LessonCountOutputType without action
+ */
+export type LessonCountOutputTypeCountAllowedGroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GroupWhereInput
+}
 
 
 export type LessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -440,6 +725,9 @@ export type LessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   description?: boolean
   theory?: boolean | Prisma.Lesson$theoryArgs<ExtArgs>
   practice?: boolean | Prisma.Lesson$practiceArgs<ExtArgs>
+  allowedUsers?: boolean | Prisma.Lesson$allowedUsersArgs<ExtArgs>
+  allowedGroups?: boolean | Prisma.Lesson$allowedGroupsArgs<ExtArgs>
+  _count?: boolean | Prisma.LessonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["lesson"]>
 
 export type LessonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -464,6 +752,9 @@ export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type LessonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   theory?: boolean | Prisma.Lesson$theoryArgs<ExtArgs>
   practice?: boolean | Prisma.Lesson$practiceArgs<ExtArgs>
+  allowedUsers?: boolean | Prisma.Lesson$allowedUsersArgs<ExtArgs>
+  allowedGroups?: boolean | Prisma.Lesson$allowedGroupsArgs<ExtArgs>
+  _count?: boolean | Prisma.LessonCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LessonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 export type LessonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -473,6 +764,8 @@ export type $LessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   objects: {
     theory: Prisma.$TheoryLessonPayload<ExtArgs> | null
     practice: Prisma.$PracticeLessonPayload<ExtArgs> | null
+    allowedUsers: Prisma.$UserPayload<ExtArgs>[]
+    allowedGroups: Prisma.$GroupPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -874,6 +1167,8 @@ export interface Prisma__LessonClient<T, Null = never, ExtArgs extends runtime.T
   readonly [Symbol.toStringTag]: "PrismaPromise"
   theory<T extends Prisma.Lesson$theoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lesson$theoryArgs<ExtArgs>>): Prisma.Prisma__TheoryLessonClient<runtime.Types.Result.GetResult<Prisma.$TheoryLessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   practice<T extends Prisma.Lesson$practiceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lesson$practiceArgs<ExtArgs>>): Prisma.Prisma__PracticeLessonClient<runtime.Types.Result.GetResult<Prisma.$PracticeLessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  allowedUsers<T extends Prisma.Lesson$allowedUsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lesson$allowedUsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  allowedGroups<T extends Prisma.Lesson$allowedGroupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lesson$allowedGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1329,6 +1624,54 @@ export type Lesson$practiceArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   include?: Prisma.PracticeLessonInclude<ExtArgs> | null
   where?: Prisma.PracticeLessonWhereInput
+}
+
+/**
+ * Lesson.allowedUsers
+ */
+export type Lesson$allowedUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[]
+  cursor?: Prisma.UserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
+}
+
+/**
+ * Lesson.allowedGroups
+ */
+export type Lesson$allowedGroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Group
+   */
+  select?: Prisma.GroupSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Group
+   */
+  omit?: Prisma.GroupOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GroupInclude<ExtArgs> | null
+  where?: Prisma.GroupWhereInput
+  orderBy?: Prisma.GroupOrderByWithRelationInput | Prisma.GroupOrderByWithRelationInput[]
+  cursor?: Prisma.GroupWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GroupScalarFieldEnum | Prisma.GroupScalarFieldEnum[]
 }
 
 /**

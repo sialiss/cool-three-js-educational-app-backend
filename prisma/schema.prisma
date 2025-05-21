@@ -24,8 +24,10 @@ model User {
   email                  String
   phone                  String
   role                   Role
+  groups                 Group[]        @relation("UserGroups")
   completedTheoryLessons TheoryLesson[] @relation("CompletedTheoryLessons")
-  completedPracticeLessons PracticeLesson[]    @relation("CompletedPracticeLessons")
+  completedPracticeLessons PracticeLesson[] @relation("CompletedPracticeLessons")
+  allowedLessons         Lesson[]       @relation("AllowedLessons")
 }
 
 enum Role {
@@ -34,12 +36,24 @@ enum Role {
   moderator
 }
 
+model Group {
+  id         Int      @id @default(autoincrement())
+  name     String
+  startDate  DateTime
+  endDate    DateTime
+  users      User[]   @relation("UserGroups")
+  lessons    Lesson[] @relation("GroupLessons")
+}
+
 model Lesson {
   id               Int             @id @default(autoincrement())
   title            String
   description      String
   theory           TheoryLesson?   @relation("LessonToTheory")
   practice         PracticeLesson? @relation("LessonToPractice")
+
+  allowedUsers     User[]          @relation("AllowedLessons")
+  allowedGroups    Group[]         @relation("GroupLessons")
 }
 
 model TheoryLesson {
