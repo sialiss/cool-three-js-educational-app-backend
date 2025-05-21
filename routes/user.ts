@@ -4,7 +4,7 @@ import * as userController from "../controllers/userController.ts"
 const router = new Router()
 
 router
-	.get("/user", userController.getAll)
+	.get("/user", userController.fetchUsers)
 	.get("/user/:id", userController.getById)
 	.post("/user/create", userController.create)
 	.delete("/user/:id", userController.remove)

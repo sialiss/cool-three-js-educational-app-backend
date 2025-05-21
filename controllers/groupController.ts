@@ -29,60 +29,6 @@ export async function getById(ctx: Context & { params: { id: string } }) {
 	ctx.response.body = group
 }
 
-export async function getGroupUsers(ctx: Context) {
-	const url = new URL(ctx.request.url)
-	const groupIds = url.searchParams.getAll("groupId").map(Number)
-	const status = url.searchParams.get("status") // "active" | "finished" | undefined
-
-	const now = new Date()
-
-	// Условие по группам
-	const groupFilter = groupIds.length ? { id: { in: groupIds } } : undefined
-
-	// Условие по статусу групп
-	let statusFilter = {}
-	if (status === "active") {
-		statusFilter = {
-			startDate: { lte: now },
-			endDate: { gte: now },
-		}
-	} else if (status === "finished") {
-		statusFilter = {
-			endDate: { lt: now },
-		}
-	}
-
-	const groups = await prisma.group.findMany({
-		where: {
-			...groupFilter,
-			...statusFilter,
-		},
-		include: {
-			users: true,
-		},
-	})
-
-	// Объединение пользователей из всех групп, без дубликатов
-	const usersMap = new Map<number, User>()
-	for (const group of groups) {
-		for (const user of group.users) {
-			usersMap.set(user.id, user)
-		}
-	}
-
-	const grouped = groups.map(group => {
-		const isActive = group.startDate <= now && group.endDate >= now
-		return {
-			groupId: group.id,
-			groupName: group.name,
-			status: isActive ? "active" : "finished",
-			users: group.users,
-		}
-	})
-
-	ctx.response.body = grouped
-}
-
 export async function create(ctx: Context) {
 	const body = await ctx.request.body({ type: "json" }).value
 	const { name, startDate, endDate, userIds, lessonIds } = body

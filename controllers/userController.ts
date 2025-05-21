@@ -99,9 +99,12 @@ export async function update(ctx: Context & { params: { id: string } }) {
 		patronymic,
 		email,
 		login,
-		password: await hashPassword(password),
 		phone,
 		role,
+	}
+
+	if (password) {
+		data.password = await hashPassword(password)
 	}
 
 	if (Array.isArray(groupIds)) {
@@ -174,4 +177,46 @@ export async function getMe(ctx: Context) {
 	}
 
 	ctx.response.body = { user: result.user, ok: true }
+}
+
+export async function fetchUsers(ctx: Context) {
+	const url = new URL(ctx.request.url)
+	const groupIds = url.searchParams.getAll("groupId").map(Number)
+	const status = url.searchParams.get("status") // "active" | "finished" | undefined
+
+	const now = new Date()
+
+	// Если нет фильтров — вернуть всех пользователей
+	if (groupIds.length === 0 && !status) {
+		ctx.response.body = await prisma.user.findMany({
+			include: {
+				groups: true,
+			},
+		})
+		return
+	}
+
+	// Условие по группам и статусу групп
+	const groupWhere = {
+		...(groupIds.length && { id: { in: groupIds } }),
+		...(status === "active"
+			? { startDate: { lte: now }, endDate: { gte: now } }
+			: status === "finished"
+			? { endDate: { lt: now } }
+			: {}),
+	}
+
+	const groups = await prisma.group.findMany({
+		where: groupWhere,
+		include: { users: true },
+	})
+
+	const usersMap = new Map<number, any>()
+	for (const group of groups) {
+		for (const user of group.users) {
+			usersMap.set(user.id, user)
+		}
+	}
+
+	ctx.response.body = Array.from(usersMap.values())
 }
