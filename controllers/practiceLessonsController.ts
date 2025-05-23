@@ -123,14 +123,16 @@ export async function toggleComplete(
 		l => l.id === lessonId
 	)
 
-	await prisma.user.update({
-		where: { id: user.id },
-		data: {
-			completedPracticeLessons: {
-				[alreadyCompleted ? "disconnect" : "connect"]: { id: lessonId },
+	if (!alreadyCompleted) {
+		await prisma.user.update({
+			where: { id: user.id },
+			data: {
+				completedPracticeLessons: {
+					connect: { id: lessonId },
+				},
 			},
-		},
-	})
+		})
+	}
 
-	ctx.response.body = { completed: !alreadyCompleted }
+	ctx.response.body = { completed: true }
 }
