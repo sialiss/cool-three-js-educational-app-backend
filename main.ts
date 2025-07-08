@@ -21,6 +21,11 @@ router.get("/", context => {
 	context.response.body = "Welcome to the Server API!"
 })
 
+router.get("/ping", context => {
+	context.response.status = 200
+	context.response.body = { status: "ok" }
+})
+
 app.use(userRoutes.routes())
 app.use(userRoutes.allowedMethods())
 
